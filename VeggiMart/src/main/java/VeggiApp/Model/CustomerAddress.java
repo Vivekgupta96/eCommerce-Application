@@ -13,10 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomerAddress extends Address {
-	
-	
 
-	
 	@Column(name = "AddressType")
 	private String addressType;
 

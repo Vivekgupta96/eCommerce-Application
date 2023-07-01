@@ -26,7 +26,7 @@ public class Address {
     
     //@NotNull
     //@NotBlank(message = "Area Name Mandatory")
-    private String area;
+    private String Street;
     
     //@NotNull
     //@NotBlank(message = "City Name Mandatory")
@@ -34,7 +34,7 @@ public class Address {
     
    // @NotNull
     //@NotBlank(message = "zipCode Name Mandatory")
-    private String pinCode;
+    private String ZipCode;
     
     //@NotNull
     //@NotBlank(message = "City Name Mandatory")
