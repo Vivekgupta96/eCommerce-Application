@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import VeggiApp.Model.Vegetables;
 
 @Repository
-public interface VegetablesRepository extends JpaRepository<Vegetables, Integer> {
+public interface VegetableManagmentRepository extends JpaRepository<Vegetables, Integer> {
 
 }
