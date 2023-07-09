@@ -7,12 +7,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @MappedSuperclass
+@AllArgsConstructor
 public class User {
 
 	@Id
@@ -25,10 +28,6 @@ public class User {
 	
 	@NotNull(message = "Password is mandatory")
 	private String password;
-	
-	@NotNull(message = "Role is mandatory")
-	private String role;
-
 
 	private boolean isActive=true;
 
@@ -37,11 +36,5 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User( @Email String email, @NotNull(message = "Password is mandatory") String password,
-			@NotNull(message = "Role is mandatory") String role) {
-		super();
-		this.email = email;
-		this.password = password;
-		this.role = role;
-	}
+
 }

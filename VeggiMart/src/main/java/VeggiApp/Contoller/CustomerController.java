@@ -18,6 +18,7 @@ import VeggiApp.Exception.CustomerException;
 import VeggiApp.Model.Customer;
 import VeggiApp.Service.CustomerService;
 import jakarta.validation.Valid;
+import VeggiApp.ModelDTO.CustomerDTO;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -38,17 +39,17 @@ public class CustomerController {
 		
 	}
 
-	@PutMapping("/customers/update/{customerId}")
-	public ResponseEntity<Customer> updateCustomer(@PathVariable Integer customerId, @RequestBody Customer customerDto) {
+	@PutMapping("/customers/updatePassword/{customerId}")
+	public ResponseEntity<Customer> updateCustomer(@PathVariable Integer customerId, @RequestBody CustomerDTO custDTO) {
 		try {
-			Customer updatedCustomer = customerService.updateCustomer(customerId, customerDto);
+			Customer updatedCustomer = customerService.updateCustomerPassword(customerId, custDTO);
 			return ResponseEntity.ok(updatedCustomer);
 		} catch (CustomerException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
 
-	@DeleteMapping ("/customers//deactivate/{customerId}")
+	@DeleteMapping ("/customers/deactivate/{customerId}")
 	public ResponseEntity<Customer> deactivateCustomer(@PathVariable Integer customerId) {
 		try {
 			Customer deactivatedCustomer = customerService.deactivateCustomer(customerId);

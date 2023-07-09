@@ -20,9 +20,10 @@ import lombok.Setter;
 @Entity
 @Table(name = "Customer")
 public class Customer extends User {
-   //@NotNull(message = "Confirm Password is mandatory")
-   private String confirmPass;
-	
+
+   @NotNull(message = "Role is mandatory")
+   private String role="user";
+
    // @Column(name = "Customer_first_Name")
     private String customerName;
 

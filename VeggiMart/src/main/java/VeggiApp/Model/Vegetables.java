@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,23 +28,29 @@ public class Vegetables {
 	@Column(name = "VegetableName")
 	private String vegName;
 
+	@Column(name = "categoryName")
+	private String category;
+
 	@Column(name = "Price")
 	private double price;
 
 	
-	@Column(name = "AvailableQuantity")
-	private int availableQuantity;
+	@Column(name = "Quantity")
+	private int Quantity;
 	
 	
 	// *************
+	@JsonIgnore
 	@ManyToMany
 	private List<Orders> orders = new ArrayList<>();
 
 	// *************
+	@JsonIgnore
 	@OneToMany(mappedBy = "vegetables")
     private List<Feedback> feedbacks;
 	
 	// *************
+	@JsonIgnore
 	@ManyToMany(mappedBy = "vegetables")
     private Set<Cart> carts = new HashSet<>();
 }

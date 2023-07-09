@@ -62,6 +62,10 @@ public class VegetableManagmentServiceImpl implements VegetableManagmentService 
 
     @Override
     public List<Vegetables> viewAllVegetableByName(String name) throws VegetableManagmentException {
-        return null;
+        List<Vegetables> vegetablesList=vegetableRepository.getAllVegitableByName(name);
+        if(vegetablesList==null){
+            throw new VegetableManagmentException("Vegetable not found");
+        }
+        return vegetablesList;
     }
 }
