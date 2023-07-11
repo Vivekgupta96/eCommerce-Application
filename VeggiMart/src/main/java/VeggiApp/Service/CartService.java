@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface CartService {
-    public String addVegetableToCart(Vegetables vegetables) throws CartException;
+    public String addVegetableToCart(Integer userId,Vegetables vegetables) throws CartException;
 
     public void increseVegetableQuantity(Integer vegetableId,Integer qty)throws CartException;
 

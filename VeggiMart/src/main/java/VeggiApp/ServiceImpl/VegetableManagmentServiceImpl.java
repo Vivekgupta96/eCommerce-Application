@@ -34,7 +34,7 @@ public class VegetableManagmentServiceImpl implements VegetableManagmentService 
          Vegetables existingVegetable=exisVegetable.get();
         existingVegetable.setVegName(vegetables.getVegName());
         existingVegetable.setPrice(vegetables.getPrice());
-        existingVegetable.setAvailableQuantity(vegetables.getAvailableQuantity());
+        existingVegetable.setQuantity(vegetables.getQuantity());
         // Update any other fields as needed
         return vegetableRepository.save(existingVegetable);
     }

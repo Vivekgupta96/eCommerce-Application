@@ -13,10 +13,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +36,10 @@ public class Cart {
 	@ManyToMany
 	@JoinTable(name = "cart_vegetable", joinColumns = @JoinColumn(name = "cart_id"), inverseJoinColumns = @JoinColumn(name = "vegetable_id"))
 	private Set<Vegetables> vegetables = new HashSet<>();
+
+	public Cart(Integer cartId, Customer customer, Set<Vegetables> vegetables) {
+		this.cartId = cartId;
+		this.customer = customer;
+		this.vegetables = vegetables;
+	}
 }

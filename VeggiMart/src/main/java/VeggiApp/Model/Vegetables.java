@@ -36,7 +36,7 @@ public class Vegetables {
 
 	
 	@Column(name = "Quantity")
-	private int Quantity;
+	private int Quantity=1;
 	
 	
 	// *************
