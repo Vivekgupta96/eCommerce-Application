@@ -20,10 +20,10 @@ public class Category {
 
     @Column(name = "name")
     private String name;
+//
+//    @OneToMany(mappedBy = "category")
+//    private List<Product> products= new ArrayList<>();
 
-    @OneToMany(mappedBy = "category")
-    private List<Product> products= new ArrayList<>();
-
-    // Other fields, getters, and setters
+   
 }
 

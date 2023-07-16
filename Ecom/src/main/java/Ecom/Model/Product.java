@@ -3,6 +3,9 @@ package Ecom.Model;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,28 +43,27 @@ public class Product {
 
     @Column(name = "price")
     private BigDecimal price;
-
-  
+ 
+    @Column(name = "category_name")
+    private String category; 
     
-//    @Column(name = "category_name")
-//    private String category; 
-    @ManyToOne
-    @JoinColumn(name="category_id")
-    private Category category;
+//    @ManyToOne
+//    @JoinColumn(name="category_id")
+//    private Category category;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<CartItem> cartItems;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems= new ArrayList<>();;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<Review> reviews= new ArrayList<>();;
     
    
-    
-
-    // Other product-related fields, getters, and setters
 }
 
