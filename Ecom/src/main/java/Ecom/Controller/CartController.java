@@ -34,9 +34,9 @@ public class CartController {
     }
 
     @PostMapping("/add-product")
-    public ResponseEntity<Cart> addProductToCart(@RequestParam Integer userId, @RequestBody Product product) {
+    public ResponseEntity<Cart> addProductToCart(@RequestParam Integer userId, @RequestParam Integer productId) {
         try {
-            Cart cart = cartService.addProductToCart(userId, product);
+            Cart cart = cartService.addProductToCart(userId, productId);
             return ResponseEntity.ok(cart);
         } catch (CartException | ProductException | UserException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -44,9 +44,9 @@ public class CartController {
     }
 
     @PutMapping("/increase-productQty")
-    public ResponseEntity<Cart> increaseProductQuantity(@RequestParam Integer userId, @RequestParam Integer cartItemId) {
+    public ResponseEntity<Cart> increaseProductQuantity(@RequestParam Integer userId, @RequestParam Integer productId) {
         try {
-            Cart cart = cartService.increaseProductQuantity(userId, cartItemId);
+            Cart cart = cartService.increaseProductQuantity(userId, productId);
             return ResponseEntity.ok(cart);
         } catch (CartException | UserException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -54,9 +54,9 @@ public class CartController {
     }
 
     @PutMapping("/decrease-productQty")
-    public ResponseEntity<Cart> decreaseProductQuantity(@RequestParam Integer userId, @RequestParam Integer cartItemId) {
+    public ResponseEntity<Cart> decreaseProductQuantity(@RequestParam Integer userId, @RequestParam Integer productId) {
         try {
-            Cart cart = cartService.decreaseProductQuantity(userId, cartItemId);
+            Cart cart = cartService.decreaseProductQuantity(userId, productId);
             return ResponseEntity.ok(cart);
         } catch (CartException | UserException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

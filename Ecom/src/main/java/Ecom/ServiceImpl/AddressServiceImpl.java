@@ -1,5 +1,7 @@
 package Ecom.ServiceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +9,6 @@ import Ecom.Exception.AddressException;
 import Ecom.Exception.UserException;
 import Ecom.Model.Address;
 import Ecom.Model.User;
-import Ecom.ModelDTO.AddressDTO;
 import Ecom.Repository.AddressRepository;
 import Ecom.Repository.UserRepository;
 import Ecom.Service.AddressService;
@@ -27,9 +28,13 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public Address addAddressToUser(Integer userId, Address address) throws AddressException {
       User existingUser=userRepository.findById(userId).orElseThrow(()-> new UserException("User Not Fouund"));
-      existingUser.getAddress().add(address);
+      
+      Address saveaAddress=addressRepository.save(address);
+      saveaAddress.setUser(existingUser);
+      
+      existingUser.getAddress().add(saveaAddress);
       userRepository.save(existingUser);
-      return addressRepository.save(address);
+      return saveaAddress;
     }
 
     @Override
@@ -57,4 +62,12 @@ public class AddressServiceImpl implements AddressService {
         // Delete the address from the repository
         addressRepository.delete(existingAddress);
     }
+
+	@Override
+	public List<Address> getAllUserAddress(Integer userId) throws AddressException {
+		
+		List<Address> userAddressList = addressRepository.getUserAddressList(userId);
+		if(userAddressList.isEmpty()) throw new AddressException("User do not hava AnyAddress");
+		return userAddressList;
+	}
 }

@@ -1,10 +1,11 @@
 package Ecom.Service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import Ecom.Exception.AddressException;
 import Ecom.Model.Address;
-import Ecom.ModelDTO.AddressDTO;
 
 @Service
 public interface AddressService {
@@ -14,5 +15,7 @@ public interface AddressService {
 	public Address updateAddress( Address address) throws AddressException ;
 	
 	public void   removeAddress(Integer addressId)throws AddressException;
+	
+	public List<Address> getAllUserAddress(Integer userId)throws AddressException;
 
 }

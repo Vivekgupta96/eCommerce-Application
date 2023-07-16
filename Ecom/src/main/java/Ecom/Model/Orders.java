@@ -1,13 +1,15 @@
 package Ecom.Model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import Ecom.Enum.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,10 +29,8 @@ public class Orders {
     @Column(name = "order_id")
     private Long orderId;
 
-   
-
-    @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus staus;
 
     @Column(name = "order_date")
     private LocalDate orderDate;
@@ -38,6 +38,8 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    
+    private String billingAddress;
     
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems= new ArrayList<>();;

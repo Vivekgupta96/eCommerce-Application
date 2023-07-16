@@ -49,7 +49,7 @@ public class User {
     private boolean isActive=true;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
     private Cart cart;
     
     @JsonIgnore
@@ -68,8 +68,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Shipping> shipping = new ArrayList<>();;
     
-  
-    @OneToMany(mappedBy = "user")
+
+ 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
     
       

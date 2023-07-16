@@ -35,6 +35,6 @@ public class OrderItem {
 
     @Column(name = "price")
     private BigDecimal price;
-
-    // Other order item-related fields, getters, and setters
+    
+   
 }
