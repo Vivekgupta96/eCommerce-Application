@@ -1,6 +1,8 @@
 package Ecom.Model;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,27 +16,29 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "OrderItems")
-public class OrderItem {
-	
+@Table(name = "Reviews")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_item_id")
-    private Long orderItemId;
+    @Column(name = "review_id")
+    private Long reviewId;
 
+    
+    @Column(name = "rating")
+    private int rating;
+
+    @Column(name = "comment")
+    private String comment;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Orders orders;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @Column(name = "quantity")
-    private Integer quantity;
-
-    @Column(name = "price")
-    private BigDecimal price;
-    
-   
 }
