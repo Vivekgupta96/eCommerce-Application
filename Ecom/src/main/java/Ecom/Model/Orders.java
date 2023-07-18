@@ -1,7 +1,8 @@
 package Ecom.Model;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Ecom.Enum.OrderStatus;
@@ -27,22 +28,22 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private Long orderId;
+    private Integer orderId;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus staus;
 
     @Column(name = "order_date")
-    private LocalDate orderDate;
+    private Date orderDate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     
-    private String billingAddress;
+    private double totalAmount;
     
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems= new ArrayList<>();;
+    private List<OrderDetails> orderDetails= new ArrayList<>();;
     
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<Payment> payments= new ArrayList<>();;

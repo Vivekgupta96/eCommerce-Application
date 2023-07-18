@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import Ecom.Exception.ProductException;
 import Ecom.Model.Product;
 import Ecom.ModelDTO.ProductDTO;
-import Ecom.Repository.CategoryRepository;
 import Ecom.Repository.ProductRepository;
 import Ecom.Service.ProductService;
 
@@ -17,8 +16,7 @@ public class ProductServiceImpl implements ProductService {
 
 	private final ProductRepository productRepository;
 	
-	@Autowired
-	private  CategoryRepository categoryRepository;
+	
 
 	@Autowired
 	public ProductServiceImpl(ProductRepository productRepository) {

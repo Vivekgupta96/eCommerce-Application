@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,12 +28,9 @@ public class Cart {
     @Column(name = "cart_id")
     private Integer cartId;
     
-    private BigDecimal  totalAmount;
+    BigDecimal totalAmount;
     
-    private int  items;
-    
-    private String couponCode;
-
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -39,6 +38,5 @@ public class Cart {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartItem> cartItems=new ArrayList<>();
 
- 
 }
 

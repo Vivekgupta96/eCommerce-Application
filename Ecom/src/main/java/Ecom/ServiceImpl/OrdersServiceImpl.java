@@ -7,54 +7,93 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Ecom.Exception.OrdersException;
-import Ecom.Model.OrderItem;
+import Ecom.Exception.UserException;
+import Ecom.Model.CartItem;
+import Ecom.Model.OrderDetails;
 import Ecom.Model.Orders;
+import Ecom.Model.Product;
 import Ecom.Model.User;
 import Ecom.ModelDTO.OrdersDTO;
-import Ecom.Repository.OrderItemRepository;
+import Ecom.Repository.OrderDetailsRepository;
 import Ecom.Repository.OrderRepository;
 import Ecom.Repository.UserRepository;
 import Ecom.Service.OrdersService;
 
 @Service
 public class OrdersServiceImpl implements OrdersService {
-	
 
 	private final OrderRepository orderRepository;
-	
+
 	private final UserRepository userRepository;
-	
-	private final OrderItemRepository orderItemRepository;
-	
+
+	private final OrderDetailsRepository ordrDetailsRepository;
+
 	@Autowired
-	public OrdersServiceImpl(OrderRepository orderRepository,UserRepository userRepository,OrderItemRepository orderItemRepository) {
-		this.orderRepository=orderRepository;
-		this.userRepository=userRepository;
-		this.orderItemRepository=orderItemRepository;
+	public OrdersServiceImpl(OrderRepository orderRepository, UserRepository userRepository,
+			OrderDetailsRepository ordrDetailsRepository) {
+		this.orderRepository = orderRepository;
+		this.userRepository = userRepository;
+		this.ordrDetailsRepository = ordrDetailsRepository;
 	}
-	
 
 	@Override
-	public Orders addOrders(Integer userId,Orders orders) throws OrdersException {
-		
-        User existingUser=userRepository.findById(userId)
-                .orElseThrow(() -> new OrdersException("User Not Found"));
+	public Orders placeOrder(Integer userId, Integer cartId) throws OrdersException {
+		User existingUser = userRepository.findById(userId)
+				.orElseThrow(() -> new UserException("User Not Found In Database"));
 
-        // Set the user for the order
-        orders.setUser(existingUser);
+		// Step-1,create order
+		Orders order = createOrder(existingUser);
 
-        Orders savedOrder = orderRepository.save(orders);
+		// step-2
+		List<CartItem> cartItems = existingUser.getCart().getCartItems();
+		for (CartItem cartItem : cartItems) {
 
-        // Save the order items
-        List<OrderItem> orderItems = orders.getOrderItems();
-        for (OrderItem orderItem : orderItems) {
-            //orderItem.setOrder(savedOrder);
-            orderItemRepository.save(orderItem);
-        }
+			Product product = cartItem.getProduct();
 
-        return savedOrder;
+			int quantity = cartItem.getQuantity();
+
+			createOrderDetail(order, product, quantity);
+		}
+		//step-3
+		double totalAmount = calculateTotalOrderAmount(order);
+        order.setTotalAmount(totalAmount);
+        updateOrder(order);
+		return order;
 	}
 
+	private void updateOrder(Orders order) {
+		orderRepository.save(order);
+	}
+
+	private double calculateTotalOrderAmount(Orders order) {
+        double totalAmount = 0.0;
+        for (OrderDetails orderDetail : order.getOrderDetails()) {
+            totalAmount += (orderDetail.getQuantity()*orderDetail.getQuantity());
+        }
+        return totalAmount;
+	}
+
+	private Orders createOrder(User existingUser) {
+		Orders order = new Orders();
+		order.setUser(existingUser);
+		order.setOrderDate(new Date());
+		orderRepository.save(order);
+		return order;
+	}
+
+	private void createOrderDetail(Orders order, Product product, int quantity) {
+
+		OrderDetails orderDetails= new OrderDetails();
+		orderDetails.setProduct(product);
+		orderDetails.setOrders(order);
+		orderDetails.setQuantity(quantity);
+		ordrDetailsRepository.save(orderDetails);
+		
+	}
+
+	
+	
+//******************************************************************************
 	@Override
 	public Orders updateOrders(Integer ordersid, OrdersDTO orderDTo) throws OrdersException {
 		// TODO Auto-generated method stub
@@ -88,7 +127,7 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public void deleteOrders(Integer userId, Integer Orderid) throws OrdersException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
