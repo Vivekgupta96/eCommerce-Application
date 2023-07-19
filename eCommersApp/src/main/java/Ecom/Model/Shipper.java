@@ -25,7 +25,7 @@ public class Shipper {
     private String phoneNumber;
     
     @OneToMany(mappedBy = "shipper")
-    private List<Shipping> shippings= new ArrayList<>();;
+    private List<ShippingDetails> shippingDetails= new ArrayList<>();;
 
   
 }

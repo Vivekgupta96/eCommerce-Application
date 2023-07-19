@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,18 +61,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();;
     
-    @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    private List<Payment> payments = new ArrayList<>();;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    private List<Shipping> shipping = new ArrayList<>();;
-    
-
- 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Payment> payments = new ArrayList<>();
     
       
 }

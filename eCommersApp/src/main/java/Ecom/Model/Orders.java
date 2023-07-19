@@ -1,6 +1,5 @@
 package Ecom.Model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -45,15 +45,12 @@ public class Orders {
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
     private List<OrderDetails> orderDetails= new ArrayList<>();;
     
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private List<Payment> payments= new ArrayList<>();;
+    @OneToOne(mappedBy = "order")
+    private Payment payment;
+
     
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private List<Shipping> shipping= new ArrayList<>();;
+    @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ShippingDetails shippingDetails;
     
     
-    
-    
-   
-    // Other order-related fields, getters, and setters
 }
