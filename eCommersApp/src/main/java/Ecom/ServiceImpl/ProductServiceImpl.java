@@ -30,25 +30,6 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.save(product);
 	}
 	
-//	
-//	public Product addProduct(Product product) throws ProductException {
-//        // Check if the category exists or create a new one if needed
-//        Category category = product.getCategory();
-//        if (category != null && category.getCategoryId() == null) {
-//        	
-//        	Category category1 = new Category();
-//        	category1.setName(category.getName());
-//            categoryRepository.save(category1);
-//            product.setCategory(category1);
-//        
-//        }
-//        return productRepository.save(product);
-//    
-//
-//	
-//	}	
-	
-	
 	@Override
 	public Product updateProduct(Integer productId, ProductDTO updatedProduct) throws ProductException {
 

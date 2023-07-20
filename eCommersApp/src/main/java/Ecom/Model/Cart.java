@@ -1,6 +1,5 @@
 package Ecom.Model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class Cart {
     @Column(name = "cart_id")
     private Integer cartId;
     
-    BigDecimal totalAmount;
+    Double totalAmount;
     
     @JsonIgnore
     @OneToOne

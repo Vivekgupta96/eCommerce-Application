@@ -42,7 +42,7 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private double price;
  
     @Column(name = "category_name")
     private String category; 
@@ -50,7 +50,7 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private List<OrderDetails> orderDetails= new ArrayList<>();;
+    private List<OrderItem> orderItem= new ArrayList<>();;
     
     @JsonIgnore
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)

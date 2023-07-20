@@ -1,21 +1,26 @@
 package Ecom.ServiceImpl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import Ecom.Enum.OrderStatus;
 import Ecom.Exception.OrdersException;
 import Ecom.Exception.UserException;
+import Ecom.Model.Cart;
 import Ecom.Model.CartItem;
-import Ecom.Model.OrderDetails;
+import Ecom.Model.OrderItem;
 import Ecom.Model.Orders;
-import Ecom.Model.Product;
 import Ecom.Model.User;
 import Ecom.ModelDTO.OrdersDTO;
-import Ecom.Repository.OrderDetailsRepository;
+import Ecom.Repository.CartItemRepository;
+import Ecom.Repository.OrderItemRepository;
 import Ecom.Repository.OrderRepository;
+import Ecom.Repository.ProductRepository;
 import Ecom.Repository.UserRepository;
 import Ecom.Service.OrdersService;
 
@@ -26,73 +31,63 @@ public class OrdersServiceImpl implements OrdersService {
 
 	private final UserRepository userRepository;
 
-	private final OrderDetailsRepository ordrDetailsRepository;
+	private final OrderItemRepository orderItemRepository;
+
+	@Autowired
+	private ProductRepository productRepository;
+
+	@Autowired
+	private CartItemRepository cartItemRepository;
 
 	@Autowired
 	public OrdersServiceImpl(OrderRepository orderRepository, UserRepository userRepository,
-			OrderDetailsRepository ordrDetailsRepository) {
+			OrderItemRepository orderItemRepository) {
 		this.orderRepository = orderRepository;
 		this.userRepository = userRepository;
-		this.ordrDetailsRepository = ordrDetailsRepository;
+		this.orderItemRepository = orderItemRepository;
 	}
 
 	@Override
-	public Orders placeOrder(Integer userId, Integer cartId) throws OrdersException {
-		User existingUser = userRepository.findById(userId)
+	public Orders placeOrder(OrdersDTO orderDTO) throws OrdersException {
+		User existingUser = userRepository.findById(orderDTO.getUserId())
 				.orElseThrow(() -> new UserException("User Not Found In Database"));
 
-		// Step-1,create order
-		Orders order = createOrder(existingUser);
+		Integer cartId = existingUser.getCart().getCartId();
 
-		// step-2
-		List<CartItem> cartItems = existingUser.getCart().getCartItems();
-		for (CartItem cartItem : cartItems) {
-
-			Product product = cartItem.getProduct();
-
-			int quantity = cartItem.getQuantity();
-
-			createOrderDetail(order, product, quantity);
-		}
-		//step-3
-		double totalAmount = calculateTotalOrderAmount(order);
-        order.setTotalAmount(totalAmount);
-        updateOrder(order);
-		return order;
-	}
-
-	private void updateOrder(Orders order) {
-		orderRepository.save(order);
-	}
-
-	private double calculateTotalOrderAmount(Orders order) {
-        double totalAmount = 0.0;
-        for (OrderDetails orderDetail : order.getOrderDetails()) {
-            totalAmount += (orderDetail.getQuantity()*orderDetail.getQuantity());
-        }
-        return totalAmount;
-	}
-
-	private Orders createOrder(User existingUser) {
+		// Create the order entity and save it to the database
 		Orders order = new Orders();
-		order.setUser(existingUser);
+		order.setStaus(OrderStatus.PENDING);
 		order.setOrderDate(new Date());
-		orderRepository.save(order);
-		return order;
+		order.setUser(existingUser);
+		existingUser.getOrders().add(order);
+		userRepository.save(existingUser);
+
+		// Create order items entities and save them to the database
+		int sum = 0;
+		List<OrderItem> orderItems = new ArrayList<>();
+		for (CartItem itemDTO : existingUser.getCart().getCartItems()) {
+
+			if (itemDTO.getCart().getCartId() == cartId) {
+
+				OrderItem orderItem = new OrderItem();// creating New orderItem;
+
+				orderItem.setOrders(order);
+				orderItem.setProduct(itemDTO.getProduct());
+				sum += itemDTO.getProduct().getPrice();
+	
+				orderItem.setQuantity(itemDTO.getQuantity());
+				orderItems.add(orderItem);
+			}
+		}
+
+		orderItemRepository.saveAll(orderItems);
+		order.setTotalAmount(sum);
+		cartItemRepository.removeAllProductFromCart(cartId);
+	
+		return orderRepository.save(order);
+
 	}
 
-	private void createOrderDetail(Orders order, Product product, int quantity) {
-
-		OrderDetails orderDetails= new OrderDetails();
-		orderDetails.setProduct(product);
-		orderDetails.setOrders(order);
-		orderDetails.setQuantity(quantity);
-		ordrDetailsRepository.save(orderDetails);
-		
-	}
-
-	
-	
 //******************************************************************************
 	@Override
 	public Orders updateOrders(Integer ordersid, OrdersDTO orderDTo) throws OrdersException {

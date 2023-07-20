@@ -63,11 +63,22 @@ public class CartController {
         }
     }
 
-    @DeleteMapping("/remove-product/{cartId}/{cartItemId}")
-    public ResponseEntity<Void> removeProductFromCart(@PathVariable Integer cartId, @PathVariable Integer productId) {
+    @DeleteMapping("/remove-product/{cartId}/{productId}")
+    public ResponseEntity<String> removeProductFromCart(@PathVariable Integer cartId, @PathVariable Integer productId) {
         try {
             cartService.removeProductFromCart(cartId, productId);
-            return ResponseEntity.ok().build();
+            String msg="Succesfully removes All Item";
+            return new ResponseEntity<String>(msg,HttpStatus.OK);
+        } catch (CartException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    @DeleteMapping("/empty-Cart/{cartId}")
+    public ResponseEntity<String> removeAllProductFromCart(@PathVariable Integer cartId) {
+        try {
+            cartService.removeAllProductFromCart(cartId);
+            String msg="Succesfully removes All Item";
+            return new ResponseEntity<String>(msg,HttpStatus.OK);
         } catch (CartException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

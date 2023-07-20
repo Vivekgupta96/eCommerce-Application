@@ -1,6 +1,5 @@
 package Ecom.ModelDTO;
 
-import java.math.BigDecimal;
 
 import lombok.Data;
 
@@ -13,7 +12,7 @@ public class ProductDTO {
 
 	private String description;
 
-	private BigDecimal price;
+	private double price;
 
 	private String category;
 }

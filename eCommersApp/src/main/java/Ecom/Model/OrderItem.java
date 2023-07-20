@@ -1,6 +1,6 @@
 package Ecom.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,18 +14,17 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "CartItems")
-public class CartItem {
+@Table(name = "OrderItem")
+public class OrderItem {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_item_id")
-    private Integer cartItemId;
+    @Column(name = "orderItem_Id")
+    private Integer orderItemId;
 
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id")
+    private Orders orders;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -35,5 +34,6 @@ public class CartItem {
     private Integer quantity;
 
   
+    
+   
 }
-
