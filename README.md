@@ -1,12 +1,12 @@
-# VeggieMart_App
+# REST API for Online eCommerce Application using SpringBoot 
 
-# Online Vegetable Sales Application
+This Applicationp is a eCommerce Application with Spring Boot API with All endPoint for Ecommerse Application
 
-# REST API for Online Vegetable Sales Application With FrontEnd
 
-* We have developed this REST API for an Online Vegetable Sales Application. 
-* This API performs all the fundamental CRUD operations of any Online Vegetable Sales Application with user validation at every step.
-* This project is under developed by me .
+
+*  Developed this REST API for an Online eCommerce Applicationn. 
+* This API performs all the fundamental CRUD operations of any Online eCommerce Applicationn with user validation at every step.
+
 
 ## Tech Stack
 
@@ -24,36 +24,29 @@
 * User Module
 * Admin Module
 
-## Features
+## Getting Started
 
-* User and Admin authentication & validation with JWT Authentication.
-* Admin Features:
-    * Administrator Role of the entire application
-    * Only registered admins with valid Authentication token can add/update/delete customer from main database
-    * Admin can access the details of different User/Customers .
-  
-* User Features:
-    * A user can register himself or herself on the platform.
-    * He/She can check the Buy Vegetable ,Placed order Makes payment and Many more Functionality.
-    
+To install this application, run the following commands:
 
+```bash
+git clone https://github.com/Vivekgupta96/eCommerce-Application.git 
+cd eCommerse Application
+```
 
-## Contributors
-* [@Vivek Gupta](https://github.com/VivekGupta96)
+This will get a copy of the project installed locally. To configure all of its dependencies and start each app, follow the instructions below.
 
+### Configure Database
 
-## ER-Diagram
-![ER Diagram]()
+Once MySQL is installed you must configure a username and password. By default the user and password should be `root` . If not, you must configure in the file `application.configure` located in the path `src/main/resources/`.
+
+In the file `application.configure` you must edit the parameters `spring.datasource.username` and `spring.datasource.password` with the values you defined.
 
 ## Installation & Run
-
-* Before running the API server, you should update the database config inside the [application.properties](#) file.
-* Update the port number, username and password as per your local database config.
 
 ```
     server.port=8080
 
-    spring.datasource.url=jdbc:mysql://localhost:3306/VeggiMart
+    spring.datasource.url=jdbc:mysql://localhost:3306/EcomApp
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     spring.datasource.username=SQLUsername(i.e=root)
     spring.datasource.password=SQLUserPassword(i.e=root)
@@ -66,62 +59,10 @@
 
 `http://localhost:8080/swagger-ui/`
 
+## Links
 
-## API Module Endpoints
+This project uses the following open source libraries:
 
-### Login Module
-
-* `POST //api/adminlogin` : Admin can login with Email and password provided at the time of registation
-<!--
-### User Module
+- [Spring Boot](https://spring.io/projects/spring-boot)
 
 
-
-
-### Sample API Response for Admin Login
-
-`POST   localhost:8088/adminlogin`
-
-* Request Body
-
-```
-    {
-        "user": "Admin@gmail.com",
-        "password": "admin"
-    }
-```
-
-
----
-
-### Swagger UI
-
----
-
-<img src="#">
-
----
-
-### Login Controller
-
----
-
-<img src="#">
-
----
-
-### Admin Controller
-
----
-
-<img src="#">
-
----
-
-### User Controller
-
----
-
-<img src="#">
-
----
