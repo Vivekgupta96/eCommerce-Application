@@ -65,6 +65,7 @@ public class OrdersServiceImpl implements OrdersService {
 		// Create order items entities and save them to the database
 		int sum = 0;
 		List<OrderItem> orderItems = new ArrayList<>();
+		
 		for (CartItem itemDTO : existingUser.getCart().getCartItems()) {
 
 			if (itemDTO.getCart().getCartId() == cartId) {

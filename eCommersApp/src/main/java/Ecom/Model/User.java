@@ -1,14 +1,19 @@
 package Ecom.Model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import Ecom.Enum.UserAccountStatus;
+import Ecom.Enum.UserRole;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +33,7 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -44,10 +49,16 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     
-    private String role;
+    @Column(name = "User_Role")
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
     
-    @Column(name = "isActive")
-    private boolean isActive=true;
+    @Column(name = "User_Reg_Time")
+    private LocalDateTime registerTime;
+    
+    @Column(name = "UserAccountStatus")
+    @Enumerated(EnumType.STRING)
+    private UserAccountStatus userAccountStatus;
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "user")
@@ -64,6 +75,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Address> address = new ArrayList<>();
     
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();
     

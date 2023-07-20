@@ -43,7 +43,7 @@ public class Orders {
     private double totalAmount;
     
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItem= new ArrayList<>();;
+    private List<OrderItem> orderItem= new ArrayList<>();
     
     @OneToOne(mappedBy = "order")
     private Payment payment;
