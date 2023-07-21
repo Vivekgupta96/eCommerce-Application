@@ -43,6 +43,19 @@ public class GlobalExceptionhandler {
 		
 		MyErrorClass e1=new MyErrorClass();
 		e1.setMessage(e.getMessage());
+		System.out.println("inside the global orderexception");
+		e1.setLocalDateTimes(LocalDateTime.now());
+		e1.setDesc(req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorClass>(e1,HttpStatus.BAD_GATEWAY);
+		
+	}
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<MyErrorClass> getException1( AddressException e ,WebRequest req){
+		
+		MyErrorClass e1=new MyErrorClass();
+		e1.setMessage(e.getMessage());
+		System.out.println("inside the global orderexception");
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 		

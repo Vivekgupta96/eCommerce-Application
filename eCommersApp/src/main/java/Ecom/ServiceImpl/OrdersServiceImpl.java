@@ -110,7 +110,6 @@ public class OrdersServiceImpl implements OrdersService {
 
 		Orders order = orderRepository.findById(orderId)
 				.orElseThrow(() -> new OrdersException("Order not found in the database."));
-
 		return order;
 	}
 
@@ -163,7 +162,7 @@ public class OrdersServiceImpl implements OrdersService {
 
 	@Override
 	public Orders updateOrders(Integer ordersid, OrdersDTO orderDTo) throws OrdersException {
-		// TODO Auto-generated method stub
+	
 		return null;
 	}
 

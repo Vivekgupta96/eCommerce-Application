@@ -18,9 +18,10 @@ import Ecom.Exception.AddressException;
 import Ecom.Exception.UserException;
 import Ecom.Model.Address;
 import Ecom.Service.AddressService;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/ecom/addresses")
 public class AddressController {
 
     private final AddressService addressService;
@@ -31,7 +32,7 @@ public class AddressController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Address> addAddressToUser(@PathVariable Integer userId, @RequestBody Address address) {
+    public ResponseEntity<Address> addAddressToUser(@Valid @PathVariable Integer userId, @RequestBody Address address) {
         try {
             Address addedAddress = addressService.addAddressToUser(userId, address);
             return ResponseEntity.ok(addedAddress);

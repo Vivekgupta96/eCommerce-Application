@@ -10,42 +10,47 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Address")
+@Table(name = "Address")
 public class Address {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AddressID")
-    private Integer addressID;
-    
-    //@NotNull
-   // @NotBlank(message = "flatNo Name Mandatory")
-    private String flatNo;
-    
-    //@NotNull
-    //@NotBlank(message = "Area Name Mandatory")
-    private String Street;
-    
-    //@NotNull
-    //@NotBlank(message = "City Name Mandatory")
-    private String city;
-    
-   // @NotNull
-    //@NotBlank(message = "zipCode Name Mandatory")
-    private String ZipCode;
-    
-    //@NotNull
-    //@NotBlank(message = "City Name Mandatory")
-    private String state;
-    
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name="userid")
-    private User user;
-   
- 
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "AddressID")
+	private Integer addressID;
+
+	@NotNull(message = "flatNo Name Mandatory")
+	@NotBlank(message = "flatNo Name Mandatory")
+	private String flatNo;
+
+	@NotNull(message = "Street Name Mandatory")
+	@NotBlank(message = "Street Name Mandatory")
+	private String Street;
+
+	@Size(max = 10)
+	@NotNull(message = "City Name Mandatory")
+	@NotBlank(message = "City Name Mandatory")
+	private String city;
+
+	@NotNull
+	@NotBlank(message = "zipCode is Mandatory")
+	@Size(max = 20)
+	private String ZipCode;
+
+	@Size(max = 10)
+	@NotNull
+	@NotBlank(message = "State Name Mandatory")
+	private String state;
+
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "userid")
+	private User user;
+
 }

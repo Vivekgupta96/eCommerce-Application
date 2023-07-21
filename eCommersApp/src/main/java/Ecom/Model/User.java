@@ -49,6 +49,7 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     
+    @JsonIgnore
     @Column(name = "User_Role")
     @Enumerated(EnumType.STRING)
     private UserRole role;

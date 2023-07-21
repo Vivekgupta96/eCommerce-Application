@@ -27,7 +27,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address addAddressToUser(Integer userId, Address address) throws AddressException {
-      User existingUser=userRepository.findById(userId).orElseThrow(()-> new UserException("User Not Fouund"));
+      User existingUser=userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User Not Fouund"));
       
       Address saveaAddress=addressRepository.save(address);
       saveaAddress.setUser(existingUser);

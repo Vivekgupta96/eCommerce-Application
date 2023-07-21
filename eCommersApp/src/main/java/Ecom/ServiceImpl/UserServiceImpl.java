@@ -37,6 +37,11 @@ public class UserServiceImpl implements UserService {
 	public User addUser(CustomerDTO customer) throws UserException {
 		if (customer == null)
 			throw new UserException("customer Can not be Null");
+		Optional<User> findByEmail = userRepository.findByEmail(customer.getEmail());
+		if (findByEmail.isPresent()) {
+			System.out.println("inside add user method");
+			throw new RuntimeException("Email alredy Register");
+		}
 
 		User newCustomer = new User();
 		newCustomer.setEmail(customer.getEmail());
@@ -54,7 +59,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User addUserAdmin(AdminDTO customer) throws UserException {
 		if (customer == null)
-			throw new UserException("customer Can not be Null");
+			throw new UserException("admin Can not be Null");
 
 		User newAdmin = new User();
 		newAdmin.setEmail(customer.getEmail());
@@ -62,7 +67,7 @@ public class UserServiceImpl implements UserService {
 		newAdmin.setFirstName(customer.getFirstName());
 		newAdmin.setLastName(customer.getLastName());
 		newAdmin.setPhoneNumber(customer.getPhoneNumber());
-		newAdmin.setRole(UserRole.ROLE_CUSTOMER);
+		newAdmin.setRole(UserRole.ROLE_ADMIN);
 		newAdmin.setRegisterTime(LocalDateTime.now());
 		newAdmin.setUserAccountStatus(UserAccountStatus.ACTIVE);
 
