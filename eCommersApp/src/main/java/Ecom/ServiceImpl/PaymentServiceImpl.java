@@ -22,39 +22,50 @@ import Ecom.Service.PaymentService;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-	@Autowired
-	private PaymentRepository paymentRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private OrderRepository orderRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Override
-	public Payment makePayment(Integer orderId, Integer userId, BigDecimal amount) throws PaymentException {
+    @Autowired
+    private OrderRepository orderRepository;
 
-		User existingUser = userRepository.findById(userId)
-				.orElseThrow(() -> new UserException("User Not Found In Database"));
-		Orders order = orderRepository.findByIdAndCustomerId(orderId, userId);
-		if (order == null) {
-			throw new PaymentException("Order not found for the given customer.");
-		}
+    @Override
+    public Payment makePayment(Integer orderId, Integer userId, double amount) throws PaymentException {
 
-		LocalDateTime paymentDateTime = LocalDateTime.now();
-		Payment payment = new Payment();
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException("User not found in the database."));
 
-		payment.setOrder(order);
-		payment.setPaymentAmount(amount);
-		payment.setPaymentDate(paymentDateTime);
-		payment.setPaymentMethod(PaymentMethod.UPI);
-		payment.setPaymentStatus(PaymentStatus.SUCCESSFUL);
-		order.setPayment(payment);
-		order.setStaus(OrderStatus.SHIPPED);
+        Orders order = orderRepository.findById(orderId)
+        		.orElseThrow(() -> new UserException("User not found in the database."));;
+        if (order == null) {
+            throw new PaymentException("Order not found for the given customer.");
+        }
 
-		orderRepository.save(order);
-		existingUser.getPayments().add(payment);
-		userRepository.save(existingUser);
-		return paymentRepository.save(payment);
-	}
+        Payment payment = new Payment();
+        payment.setPaymentAmount(amount);
+        payment.setPaymentDate(LocalDateTime.now());
+        payment.setPaymentMethod(PaymentMethod.UPI);
+        payment.setPaymentStatus(PaymentStatus.SUCCESSFUL);
+        
+    
+        payment.setOrder(order);
+        paymentRepository.save(payment);
+       
+        order.setStaus(OrderStatus.SHIPPED);
 
+        // Set the payment for the order
+        order.setPayment(payment);
+        // Save the changes to the Order entity, including the associated Payment
+        orderRepository.save(order);
+
+        existingUser.getPayments().add(payment);
+
+        // Save the changes to the User entity, including the new payment association
+        userRepository.save(existingUser);
+
+        // Save the payment to the database
+        return  payment;
+    }
 }

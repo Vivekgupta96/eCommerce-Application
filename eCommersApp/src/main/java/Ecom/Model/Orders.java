@@ -40,14 +40,14 @@ public class Orders {
     @Column(name = "order_date")
     private LocalDateTime orderDate;
 
-    
+   
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     
     private double totalAmount;
     
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<OrderItem> orderItem= new ArrayList<>();
     
     @OneToOne
@@ -55,7 +55,7 @@ public class Orders {
     private Payment payment;
 
     
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     @JoinColumn(name="ShippingDetails_id")
     private ShippingDetails shippingDetails;
     

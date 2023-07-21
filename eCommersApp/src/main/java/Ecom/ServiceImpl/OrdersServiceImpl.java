@@ -24,6 +24,7 @@ import Ecom.Repository.OrderRepository;
 import Ecom.Repository.ProductRepository;
 import Ecom.Repository.UserRepository;
 import Ecom.Service.OrdersService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class OrdersServiceImpl implements OrdersService {
@@ -94,31 +95,21 @@ public class OrdersServiceImpl implements OrdersService {
 		orderRepository.save(newOrder);
 
 		// removing all product from cart
-		cartItemRepository.removeAllProductFromCart(cartId);
-
 		usercart.setTotalAmount(usercart.getTotalAmount() - newOrder.getTotalAmount());
+		cartItemRepository.removeAllProductFromCart(cartId);
 		cartRepository.save(usercart);
 		System.out.println("exit");
 		return newOrder;
 
 	}
 
-//******************************************************************************
-	@Override
-	public Orders updateOrders(Integer ordersid, OrdersDTO orderDTo) throws OrdersException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	@Transactional
 	public Orders getOrdersDetails(Integer orderId) throws OrdersException {
-		try {
-			Orders order = orderRepository.findById(orderId)
-					.orElseThrow(() -> new OrdersException("Order not found in the database."));
-			return order;
-		} catch (Exception e) {
-			throw new OrdersException("Failed to fetch order details: " + e.getMessage());
-		}
+
+		Orders order = orderRepository.findById(orderId)
+				.orElseThrow(() -> new OrdersException("Order not found in the database."));
+
+		return order;
 	}
 
 	@Override
@@ -163,9 +154,15 @@ public class OrdersServiceImpl implements OrdersService {
 		User existingUser = userRepository.findById(userId)
 				.orElseThrow(() -> new UserException("User Not Found In Database"));
 		Orders existingOrder = orderRepository.findById(Orderid)
-				.orElseThrow(() -> new UserException("User Not Found In Database"));
+				.orElseThrow(() -> new UserException("order Not Found In Database"));
 
 		orderRepository.delete(existingOrder);
+	}
+
+	@Override
+	public Orders updateOrders(Integer ordersid, OrdersDTO orderDTo) throws OrdersException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -7,5 +7,5 @@ import Ecom.Model.Payment;
 
 public interface PaymentService {
 	
-	 Payment makePayment(Integer orderId,Integer userId, BigDecimal amount) throws PaymentException;
+	 Payment makePayment(Integer orderId,Integer userId, double amount) throws PaymentException;
 }

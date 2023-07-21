@@ -36,7 +36,7 @@ public class Payment {
     private LocalDateTime paymentDate;
 
     @Column(name = "payment_amount")
-    private BigDecimal paymentAmount;
+    private double paymentAmount;
 
     @Enumerated(EnumType.STRING)
     private  PaymentMethod paymentMethod;
@@ -44,12 +44,13 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "order_id")
     private Orders order;
     
     
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

@@ -27,7 +27,7 @@ public class PaymentController {
 
 	@PostMapping("/makePayment")
 	public ResponseEntity<Payment> makePayment(@RequestParam Integer orderId, @RequestParam Integer userId,
-			@RequestParam BigDecimal amount) {
+			@RequestParam double amount) {
 		try {
 			Payment payment = paymentService.makePayment(orderId, userId, amount);
 			return ResponseEntity.ok(payment);
