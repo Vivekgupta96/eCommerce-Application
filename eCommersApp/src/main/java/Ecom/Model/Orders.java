@@ -47,7 +47,7 @@ public class Orders {
     
     private double totalAmount;
     
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<OrderItem> orderItem= new ArrayList<>();
     
     @OneToOne

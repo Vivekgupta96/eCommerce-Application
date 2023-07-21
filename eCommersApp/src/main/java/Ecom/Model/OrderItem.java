@@ -1,9 +1,5 @@
 package Ecom.Model;
 
-import java.math.BigDecimal;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,11 +20,8 @@ public class OrderItem {
     @Column(name = "orderItem_Id")
     private Integer orderItemId;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Orders orders;
-
+    @Column(name = "order_id")
+    private Integer orderId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -37,7 +30,5 @@ public class OrderItem {
     @Column(name = "quantity")
     private Integer quantity;
 
-  
-    
    
 }

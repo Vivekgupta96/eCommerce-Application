@@ -71,6 +71,7 @@ public class OrdersServiceImpl implements OrdersService {
 		existingUser.getOrders().add(newOrder);
 		newOrder.setUser(existingUser);
 		userRepository.save(existingUser);
+		orderRepository.save(newOrder);
 		// till now order save to user and database
 		System.out.println("1");
 		// Create order items entities and save them to the database
@@ -85,11 +86,12 @@ public class OrdersServiceImpl implements OrdersService {
 
 				orderItem.setQuantity(itemDTO.getQuantity());
 				orderItem.setProduct(itemDTO.getProduct());
-				orderItem.setOrders(newOrder);
+				orderItem.setOrderId(newOrder.getOrderId());
 				orderItems.add(orderItem);
 				System.out.println("inside the loop and if");
 			}
 		}
+		
 		newOrder.setOrderItem(orderItems);
 		newOrder.setTotalAmount(usercart.getTotalAmount());
 		orderRepository.save(newOrder);
