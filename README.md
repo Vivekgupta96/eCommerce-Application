@@ -17,7 +17,8 @@ This Applicationp is a eCommerce Application with Spring Boot API with All endPo
 * Hibernate
 * MySQL
 * Swagger
-
+## Schema Table 
+![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/ER_diagram.png)
 ## Modules
 
 * Login, Logout Module
