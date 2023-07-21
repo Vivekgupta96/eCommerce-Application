@@ -1,4 +1,4 @@
-# RESTFULL API for Online eCommerce Application using SpringBoot 
+# Restful API for Online eCommerce Application using SpringBoot 
 
 This Applicationp is a eCommerce Application with Spring Boot API with All endPoint for Ecommerse Application
 
