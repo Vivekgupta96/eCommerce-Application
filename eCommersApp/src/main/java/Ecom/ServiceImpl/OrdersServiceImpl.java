@@ -1,6 +1,6 @@
 package Ecom.ServiceImpl;
 
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +18,7 @@ import Ecom.Model.Orders;
 import Ecom.Model.User;
 import Ecom.ModelDTO.OrdersDTO;
 import Ecom.Repository.CartItemRepository;
+import Ecom.Repository.CartRepository;
 import Ecom.Repository.OrderItemRepository;
 import Ecom.Repository.OrderRepository;
 import Ecom.Repository.ProductRepository;
@@ -40,52 +41,65 @@ public class OrdersServiceImpl implements OrdersService {
 	private CartItemRepository cartItemRepository;
 
 	@Autowired
+	private CartRepository cartRepository;
+
+	@Autowired
 	public OrdersServiceImpl(OrderRepository orderRepository, UserRepository userRepository,
 			OrderItemRepository orderItemRepository) {
 		this.orderRepository = orderRepository;
 		this.userRepository = userRepository;
 		this.orderItemRepository = orderItemRepository;
+
 	}
 
+	// **************************************************************************************
 	@Override
 	public Orders placeOrder(OrdersDTO orderDTO) throws OrdersException {
 		User existingUser = userRepository.findById(orderDTO.getUserId())
 				.orElseThrow(() -> new UserException("User Not Found In Database"));
 
-		Integer cartId = existingUser.getCart().getCartId();
+		Cart usercart = existingUser.getCart();
+		Integer cartId = usercart.getCartId();
 
 		// Create the order entity and save it to the database
-		Orders order = new Orders();
-		order.setStaus(OrderStatus.PENDING);
-		order.setOrderDate(new Date());
-		order.setUser(existingUser);
-		existingUser.getOrders().add(order);
+		Orders newOrder = new Orders();
+
+		newOrder.setOrderDate(LocalDateTime.now());
+		newOrder.setStaus(OrderStatus.PENDING);
+
+		existingUser.getOrders().add(newOrder);
+		newOrder.setUser(existingUser);
 		userRepository.save(existingUser);
-
+		// till now order save to user and database
+		System.out.println("1");
 		// Create order items entities and save them to the database
-		int sum = 0;
-		List<OrderItem> orderItems = new ArrayList<>();
-		
-		for (CartItem itemDTO : existingUser.getCart().getCartItems()) {
 
+		List<OrderItem> orderItems = new ArrayList<>();
+
+		for (CartItem itemDTO : usercart.getCartItems()) {
+			System.out.println("inside the loop");
 			if (itemDTO.getCart().getCartId() == cartId) {
 
 				OrderItem orderItem = new OrderItem();// creating New orderItem;
 
-				orderItem.setOrders(order);
-				orderItem.setProduct(itemDTO.getProduct());
-				sum += itemDTO.getProduct().getPrice();
-	
 				orderItem.setQuantity(itemDTO.getQuantity());
+				orderItem.setProduct(itemDTO.getProduct());
+				orderItem.setOrders(newOrder);
 				orderItems.add(orderItem);
+				System.out.println("inside the loop and if");
 			}
 		}
+		newOrder.setOrderItem(orderItems);
+		newOrder.setTotalAmount(usercart.getTotalAmount());
+		orderRepository.save(newOrder);
 
-		orderItemRepository.saveAll(orderItems);
-		order.setTotalAmount(sum);
+		// removing all product from cart
 		cartItemRepository.removeAllProductFromCart(cartId);
-	
-		return orderRepository.save(order);
+
+		usercart.setTotalAmount(usercart.getTotalAmount() - newOrder.getTotalAmount());
+		cartRepository.save(usercart);
+		System.out.println("exit");
+		return newOrder;
 
 	}
 
@@ -97,33 +111,61 @@ public class OrdersServiceImpl implements OrdersService {
 	}
 
 	@Override
-	public Orders getOrdersDetails(Integer orderid) throws OrdersException {
-		// TODO Auto-generated method stub
-		return null;
+	public Orders getOrdersDetails(Integer orderId) throws OrdersException {
+		try {
+			Orders order = orderRepository.findById(orderId)
+					.orElseThrow(() -> new OrdersException("Order not found in the database."));
+			return order;
+		} catch (Exception e) {
+			throw new OrdersException("Failed to fetch order details: " + e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Orders> getAllUserOrder(Integer userId) throws OrdersException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<Orders> orders = orderRepository.getAllOrderByUserId(userId);
+			if (orders.isEmpty()) {
+				throw new OrdersException("No orders found for the user in the database.");
+			}
+			return orders;
+		} catch (Exception e) {
+			throw new OrdersException("Failed to fetch orders for the user: " + e.getMessage());
+		}
 	}
 
 	@Override
 	public List<Orders> viewAllOrders() throws OrdersException {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Orders> orders = orderRepository.findAll();
+
+		if (orders.isEmpty()) {
+			throw new OrdersException("No orders found in the database.");
+		}
+		return orders;
 	}
 
 	@Override
 	public List<Orders> viewAllOrderByDate(Date date) throws OrdersException {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Orders> orders = orderRepository.findByOrderDateGreaterThanEqual(date);
+
+		if (orders.isEmpty()) {
+			throw new OrdersException("No orders found for the given date.");
+		}
+
+		return orders;
+
 	}
 
 	@Override
 	public void deleteOrders(Integer userId, Integer Orderid) throws OrdersException {
-		// TODO Auto-generated method stub
+		User existingUser = userRepository.findById(userId)
+				.orElseThrow(() -> new UserException("User Not Found In Database"));
+		Orders existingOrder = orderRepository.findById(Orderid)
+				.orElseThrow(() -> new UserException("User Not Found In Database"));
 
+		orderRepository.delete(existingOrder);
 	}
 
 }

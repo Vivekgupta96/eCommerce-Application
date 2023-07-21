@@ -3,6 +3,8 @@ package Ecom.Model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import Ecom.Enum.PaymentMethod;
 import Ecom.Enum.PaymentStatus;
 import jakarta.persistence.Column;
@@ -46,6 +48,8 @@ public class Payment {
     @JoinColumn(name = "order_id")
     private Orders order;
     
+    
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

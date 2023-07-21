@@ -1,8 +1,11 @@
 package Ecom.Model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import Ecom.Enum.OrderStatus;
 import jakarta.persistence.CascadeType;
@@ -10,6 +13,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,22 +38,25 @@ public class Orders {
     private OrderStatus staus;
 
     @Column(name = "order_date")
-    private Date orderDate;
+    private LocalDateTime orderDate;
 
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     
     private double totalAmount;
     
-    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<OrderItem> orderItem= new ArrayList<>();
     
-    @OneToOne(mappedBy = "order")
+    @OneToOne
+    @JoinColumn(name="Payment_id")
     private Payment payment;
 
     
-    @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    @JoinColumn(name="ShippingDetails_id")
     private ShippingDetails shippingDetails;
     
     
