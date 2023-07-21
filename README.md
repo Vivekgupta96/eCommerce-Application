@@ -1,4 +1,4 @@
-# REST API for Online eCommerce Application using SpringBoot 
+# RESTFULL API for Online eCommerce Application using SpringBoot 
 
 This Applicationp is a eCommerce Application with Spring Boot API with All endPoint for Ecommerse Application
 
@@ -54,11 +54,12 @@ In the file `application.configure` you must edit the parameters `spring.datasou
 
 ```
 
-## API Root Endpoint
+## API Root Endpoint with Swagger Documentation
 
-`https://localhost:8080/`
-
-`http://localhost:8080/swagger-ui/`
+```
+https://localhost:8080/
+http://localhost:8080/swagger-ui/index.html
+```
 
 ## Links
 
