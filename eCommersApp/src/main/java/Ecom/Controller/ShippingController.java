@@ -14,43 +14,43 @@ import Ecom.Service.ShippingService;
 @RequestMapping("/shipping")
 public class ShippingController {
 
-    private final ShippingService shippingService;
+	private final ShippingService shippingService;
 
-    @Autowired
-    public ShippingController(ShippingService shippingService) {
-        this.shippingService = shippingService;
-    }
+	@Autowired
+	public ShippingController(ShippingService shippingService) {
+		this.shippingService = shippingService;
+	}
 
-    @PostMapping("/{orderId}")
-    public ResponseEntity<ShippingDetails> setShippingDetails(@PathVariable Integer orderId,
-                                                              @RequestBody ShippingDetails shippingDetails) {
-        try {
-            ShippingDetails savedShippingDetails = shippingService.setShippingDetails(orderId, shippingDetails);
-            return new ResponseEntity<>(savedShippingDetails, HttpStatus.CREATED);
-        } catch (ShippingException ex) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+	@PostMapping("/{orderId}/{shipperId}")
+	public ResponseEntity<ShippingDetails> setShippingDetails(@PathVariable Integer orderId,
+			@PathVariable Integer shipperId, @RequestBody ShippingDetails shippingDetails) {
+		try {
+			ShippingDetails savedShippingDetails = shippingService.setShippingDetails(orderId, shipperId,
+					shippingDetails);
+			return new ResponseEntity<>(savedShippingDetails, HttpStatus.CREATED);
+		} catch (ShippingException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
-    @PutMapping("/{shippingId}")
-    public ResponseEntity<ShippingDetails> updateShippingAddress(@PathVariable Integer shippingId,
-                                                                 @RequestBody ShippingDTO shippingDTO) {
-        try {
-            ShippingDetails updatedShippingDetails = shippingService.updateShippingAddress(shippingId, shippingDTO);
-            return new ResponseEntity<>(updatedShippingDetails, HttpStatus.OK);
-        } catch (ShippingException ex) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@PutMapping("/{shippingId}")
+	public ResponseEntity<ShippingDetails> updateShippingAddress(@PathVariable Integer shippingId,
+			@RequestBody ShippingDTO shippingDTO) {
+		try {
+			ShippingDetails updatedShippingDetails = shippingService.updateShippingAddress(shippingId, shippingDTO);
+			return new ResponseEntity<>(updatedShippingDetails, HttpStatus.OK);
+		} catch (ShippingException ex) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
-    @DeleteMapping("/{shippingId}")
-    public ResponseEntity<Void> deleteShippingDetails(@PathVariable Integer shippingId) {
-        try {
-            shippingService.deleteShippingDetails(shippingId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (ShippingException ex) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+	@DeleteMapping("/{shippingId}")
+	public ResponseEntity<Void> deleteShippingDetails(@PathVariable Integer shippingId) {
+		try {
+			shippingService.deleteShippingDetails(shippingId);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (ShippingException ex) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 }
-

@@ -6,7 +6,7 @@ import Ecom.ModelDTO.ShippingDTO;
 
 public interface ShippingService {
 	
-  public ShippingDetails setShippingDetails(Integer orderId,ShippingDetails shippingDetails) throws ShippingException;
+  public ShippingDetails setShippingDetails(Integer orderId,Integer shipperId,ShippingDetails shippingDetails) throws ShippingException;
   
   public ShippingDetails updateShippingAddress(Integer shippingId,ShippingDTO shippingDTO)throws ShippingException;
   

@@ -1,5 +1,7 @@
 package Ecom.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,10 +39,12 @@ public class ShippingDetails {
     @Column(name = "postal_code")
     private String postalCode;
     
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "shipper_id")
     private Shipper shipper;
     
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "order_id")
     private Orders orders;

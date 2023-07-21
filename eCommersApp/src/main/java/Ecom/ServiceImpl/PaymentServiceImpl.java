@@ -48,7 +48,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setPaymentDate(LocalDateTime.now());
         payment.setPaymentMethod(PaymentMethod.UPI);
         payment.setPaymentStatus(PaymentStatus.SUCCESSFUL);
-        
+        payment.setUser(existingUser);
     
         payment.setOrder(order);
         paymentRepository.save(payment);

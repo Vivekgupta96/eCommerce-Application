@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 
 import Ecom.Exception.ShippingException;
 import Ecom.Model.Orders;
+import Ecom.Model.Shipper;
 import Ecom.Model.ShippingDetails;
 import Ecom.ModelDTO.ShippingDTO;
 import Ecom.Repository.OrderRepository;
+import Ecom.Repository.ShipperRepository;
 import Ecom.Repository.ShippingRepository;
 import Ecom.Service.ShippingService;
 
@@ -19,14 +21,22 @@ public class ShippingServiceImpl implements ShippingService {
 
 	@Autowired
 	private OrderRepository orderRepository;
-
+	@Autowired
+	private ShipperRepository shipperRepository;
+	
 	@Override
-	public ShippingDetails setShippingDetails(Integer orderId, ShippingDetails shippingDetails)
+	public ShippingDetails setShippingDetails(Integer orderId, Integer shipperId,ShippingDetails shippingDetails)
 			throws ShippingException {
 		if (shippingDetails == null)
 			throw new ShippingException("Can be Null");
+		
 		Orders existingOrder = orderRepository.findById(orderId)
 				.orElseThrow(() -> new ShippingException("Shipping detail not found"));
+		
+		Shipper existingShipper = shipperRepository.findById(orderId)
+				.orElseThrow(() -> new ShippingException("Shipper detail not found"));
+		
+		existingShipper.getShippingDetails().add(shippingDetails);
 		existingOrder.setShippingDetails(shippingDetails);
 		shippingDetails.setOrders(existingOrder);
 		orderRepository.save(existingOrder);
