@@ -18,9 +18,10 @@ import Ecom.Exception.ProductException;
 import Ecom.Model.Product;
 import Ecom.ModelDTO.ProductDTO;
 import Ecom.Service.ProductService;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/ecom/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -31,7 +32,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
         try {
             Product newProduct = productService.addProduct(product);
             return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
@@ -41,7 +42,7 @@ public class ProductController {
     }
 
     @PutMapping("/update/{productId}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Integer productId, @RequestBody ProductDTO updatedProduct) {
+    public ResponseEntity<Product> updateProduct(@Valid @PathVariable Integer productId, @RequestBody ProductDTO updatedProduct) {
         try {
             Product updatedProductResult = productService.updateProduct(productId, updatedProduct);
             return new ResponseEntity<>(updatedProductResult, HttpStatus.OK);

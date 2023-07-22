@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import Ecom.Exception.ReviewException;
 import Ecom.Model.Review;
 import Ecom.Service.ReviewService;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/product/reviews")
+@RequestMapping("/ecom/product/reviews")
 public class ReviewController {
 
 	private final ReviewService reviewService;
@@ -30,7 +31,7 @@ public class ReviewController {
 	}
 
 	@PostMapping("/{productId}/{userId}")
-	public ResponseEntity<Review> addReviewToProduct(@PathVariable Integer productId, @PathVariable Integer userId,
+	public ResponseEntity<Review> addReviewToProduct (@Valid @PathVariable Integer productId, @PathVariable Integer userId,
 			@RequestBody Review review) {
 		try {
 			Review addedReview = reviewService.addReviewToProduct(productId, userId, review);

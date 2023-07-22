@@ -12,6 +12,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -22,11 +25,13 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long reviewId;
-
-    
+ 
+   
+    @Size(max = 5,message = "Pls provide Rating  ,can Not Be Null")
     @Column(name = "rating")
     private int rating;
 
+    @NotNull(message = "Pls provide comment  ,can Not Be Null")
     @Column(name = "comment")
     private String comment;
 
@@ -38,6 +43,7 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

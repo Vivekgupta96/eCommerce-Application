@@ -21,55 +21,51 @@ import Ecom.Service.AddressService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/ecom/addresses")
+@RequestMapping("/ecom/customer-addresses")
 public class AddressController {
 
-    private final AddressService addressService;
+	private final AddressService addressService;
 
-    @Autowired
-    public AddressController(AddressService addressService) {
-        this.addressService = addressService;
-    }
+	@Autowired
+	public AddressController(AddressService addressService) {
+		this.addressService = addressService;
+	}
 
-    @PostMapping("/{userId}")
-    public ResponseEntity<Address> addAddressToUser(@Valid @PathVariable Integer userId, @RequestBody Address address) {
-        try {
-            Address addedAddress = addressService.addAddressToUser(userId, address);
-            return ResponseEntity.ok(addedAddress);
-        } catch (AddressException | UserException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-    }
+	@PostMapping("/{userId}")
+	public ResponseEntity<Address> addAddressToUser(@Valid @PathVariable Integer userId, @RequestBody Address address) {
+		Address addedAddress = addressService.addAddressToUser(userId, address);
 
-    @PutMapping("/update")
-    public ResponseEntity<Address> updateAddress(@RequestBody Address address) {
-        try {
-            Address updatedAddress = addressService.updateAddress(address);
-            return ResponseEntity.ok(updatedAddress);
-        } catch (AddressException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-    }
+		return new ResponseEntity<>(addedAddress, HttpStatus.CREATED);
+	}
 
-    @DeleteMapping("/{addressId}")
-    public ResponseEntity<String> removeAddress(@PathVariable Integer addressId) {
-        try {
-            addressService.removeAddress(addressId);
-            return ResponseEntity.ok("Address removed successfully");
-        } catch (AddressException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-    
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<Address>> getAllUserAddress(@PathVariable Integer userId) {
-        try {
-            List<Address> allUserAddress = addressService.getAllUserAddress(userId);
-            return ResponseEntity.ok(allUserAddress);
-        } catch (AddressException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
+	@PutMapping("/update")
+	public ResponseEntity<Address> updateAddress(@RequestBody Address address) {
+		try {
+			Address updatedAddress = addressService.updateAddress(address);
+			return ResponseEntity.ok(updatedAddress);
+		} catch (AddressException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
+	}
+
+	@DeleteMapping("/{addressId}")
+	public ResponseEntity<String> removeAddress(@PathVariable Integer addressId) {
+		try {
+			addressService.removeAddress(addressId);
+			return ResponseEntity.ok("Address removed successfully");
+		} catch (AddressException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
+
+	@GetMapping("/{userId}")
+	public ResponseEntity<List<Address>> getAllUserAddress(@PathVariable Integer userId) {
+		try {
+			List<Address> allUserAddress = addressService.getAllUserAddress(userId);
+			return ResponseEntity.ok(allUserAddress);
+		} catch (AddressException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+	}
 
 }
-

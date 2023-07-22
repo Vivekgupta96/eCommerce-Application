@@ -38,13 +38,13 @@ public class Address {
 	@NotBlank(message = "City Name Mandatory")
 	private String city;
 
-	@NotNull
+	@NotNull(message = "zipCode should not Blank")
 	@NotBlank(message = "zipCode is Mandatory")
 	@Size(max = 20)
 	private String ZipCode;
 
 	@Size(max = 10)
-	@NotNull
+	@NotNull(message = "State should not Blank")
 	@NotBlank(message = "State Name Mandatory")
 	private String state;
 

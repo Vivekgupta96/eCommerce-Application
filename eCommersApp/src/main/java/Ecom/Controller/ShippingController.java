@@ -11,7 +11,7 @@ import Ecom.ModelDTO.ShippingDTO;
 import Ecom.Service.ShippingService;
 
 @RestController
-@RequestMapping("/shipping")
+@RequestMapping("/ecom/order-shipping")
 public class ShippingController {
 
 	private final ShippingService shippingService;

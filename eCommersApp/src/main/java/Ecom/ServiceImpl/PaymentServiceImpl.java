@@ -1,6 +1,5 @@
 package Ecom.ServiceImpl;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +31,19 @@ public class PaymentServiceImpl implements PaymentService {
     private OrderRepository orderRepository;
 
     @Override
-    public Payment makePayment(Integer orderId, Integer userId, double amount) throws PaymentException {
+    public Payment makePayment(Integer orderId, Integer userId) throws PaymentException {
 
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new UserException("User not found in the database."));
 
         Orders order = orderRepository.findById(orderId)
-        		.orElseThrow(() -> new UserException("User not found in the database."));;
+        		.orElseThrow(() -> new UserException("order not found in the database."));;
         if (order == null) {
             throw new PaymentException("Order not found for the given customer.");
         }
 
         Payment payment = new Payment();
-        payment.setPaymentAmount(amount);
+        payment.setPaymentAmount(order.getTotalAmount());
         payment.setPaymentDate(LocalDateTime.now());
         payment.setPaymentMethod(PaymentMethod.UPI);
         payment.setPaymentStatus(PaymentStatus.SUCCESSFUL);
@@ -61,10 +60,8 @@ public class PaymentServiceImpl implements PaymentService {
         orderRepository.save(order);
 
         existingUser.getPayments().add(payment);
-
         // Save the changes to the User entity, including the new payment association
         userRepository.save(existingUser);
-
         // Save the payment to the database
         return  payment;
     }

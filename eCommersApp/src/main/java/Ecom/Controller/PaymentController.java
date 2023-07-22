@@ -1,6 +1,5 @@
 package Ecom.Controller;
 
-import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import Ecom.Model.Payment;
 import Ecom.Service.PaymentService;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/ecom/order-payments")
 public class PaymentController {
 
 	private final PaymentService paymentService;
@@ -26,10 +25,10 @@ public class PaymentController {
 	}
 
 	@PostMapping("/makePayment")
-	public ResponseEntity<Payment> makePayment(@RequestParam Integer orderId, @RequestParam Integer userId,
-			@RequestParam double amount) {
+	public ResponseEntity<Payment> makePayment(@RequestParam Integer orderId, @RequestParam Integer userId
+			) {
 		try {
-			Payment payment = paymentService.makePayment(orderId, userId, amount);
+			Payment payment = paymentService.makePayment(orderId, userId);
 			return ResponseEntity.ok(payment);
 		} catch (PaymentException e) {
 

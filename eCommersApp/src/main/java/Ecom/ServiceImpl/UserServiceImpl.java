@@ -60,7 +60,11 @@ public class UserServiceImpl implements UserService {
 	public User addUserAdmin(AdminDTO customer) throws UserException {
 		if (customer == null)
 			throw new UserException("admin Can not be Null");
-
+		Optional<User> findByEmail = userRepository.findByEmail(customer.getEmail());
+		if (findByEmail.isPresent()) {
+			System.out.println("inside add user method");
+			throw new RuntimeException("Email alredy Register");
+		}
 		User newAdmin = new User();
 		newAdmin.setEmail(customer.getEmail());
 		newAdmin.setPassword(customer.getPassword());
@@ -93,7 +97,7 @@ public class UserServiceImpl implements UserService {
 	public String deactivateUser(Integer userId) throws UserException {
 		User existingUser = userRepository.findById(userId).orElseThrow(() -> new UserException("User not found"));
 		existingUser.setUserAccountStatus(UserAccountStatus.DEACTIVETE);
-		;
+		userRepository.save(existingUser);
 		return "Account deactivet Succesfully";
 	}
 

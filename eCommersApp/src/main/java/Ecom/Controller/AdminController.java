@@ -17,7 +17,7 @@ import Ecom.ModelDTO.UserDTO;
 import Ecom.Service.UserService;
 
 @RestController
-@RequestMapping("/veggi/admin")
+@RequestMapping("/ecom/admin")
 public class AdminController {
 	
 	private final UserService userService;
