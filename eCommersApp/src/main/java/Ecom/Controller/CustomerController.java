@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,8 @@ import jakarta.validation.Valid;
 public class CustomerController {
 
 	private final UserService userService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	public CustomerController(UserService userService) {
@@ -34,7 +37,9 @@ public class CustomerController {
 
 	@PostMapping("/register")
 	public ResponseEntity<User> addUser(@Valid @RequestBody CustomerDTO user) {
+		
 		try {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			User addedUser = userService.addUser(user);
 			return ResponseEntity.ok(addedUser);
 		} catch (UserException e) {

@@ -3,6 +3,7 @@ package Ecom.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +22,8 @@ import Ecom.Service.UserService;
 public class AdminController {
 	
 	private final UserService userService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
     @Autowired
     public AdminController(UserService userService) {
@@ -30,6 +33,7 @@ public class AdminController {
     @PostMapping("/register")
     public ResponseEntity<User> addUser(@RequestBody AdminDTO user) {
         try {
+        	user.setPassword(passwordEncoder.encode(user.getPassword()));
             User addedUser = userService.addUserAdmin(user);
             return ResponseEntity.ok(addedUser);
         } catch (UserException e) {
