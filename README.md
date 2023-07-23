@@ -1,14 +1,12 @@
-# Restful API for Online eCommerce Application using SpringBoot 
+# Restful API for Online eCommerce Application using SpringBoot with Spring Security with JWT Implementation
 
 This Applicationp is a eCommerce Application with Spring Boot API with All endPoint for Ecommerse Application
-
-
 
 *  Developed this REST API for an Online eCommerce Applicationn. 
 * This API performs all the fundamental CRUD operations of any Online eCommerce Applicationn with user validation at every step.
 
 
-## Tech Stack
+## Tech Stack and Technology Used
 
 * Java
 * Spring Framework
@@ -17,15 +15,30 @@ This Applicationp is a eCommerce Application with Spring Boot API with All endPo
 * Hibernate
 * MySQL
 * Swagger
+* Spring Security
+* JSON Web Tokens (JWT)
+* BCrypt
+* Maven
+  
+
+  
 ## Schema Table 
 ![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/ER_diagram.png)
-## Modules
 
-* Login, Logout Module
+
+## Features
+* User  and Admin registration and login with JWT authentication
+* Password encryption using BCrypt
+* Role-based authorization with Spring Security
+* Customized access denied handling
 * User Module
 * Admin Module
 
 ## Getting Started
+To get started with this project, you will need to have the following installed on your local machine:
+
+* JDK 17+
+* Maven 3+
 
 To install this application, run the following commands:
 
@@ -47,7 +60,7 @@ In the file `application.configure` you must edit the parameters `spring.datasou
 ```
     server.port=8080
 
-    spring.datasource.url=jdbc:mysql://localhost:3306/EcomApp
+    spring.datasource.url=jdbc:mysql://localhost:3306/Ecomdb
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     spring.datasource.username=SQLUsername(i.e=root)
     spring.datasource.password=SQLUserPassword(i.e=root)
