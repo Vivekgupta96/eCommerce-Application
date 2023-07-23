@@ -22,7 +22,7 @@ public interface UserService {
 	
 	public User addUserAdmin(AdminDTO admin	)  throws UserException;
 
-	public User updateUserPassword(Integer userId, UserDTO customer)  throws UserException;
+	public User changePassword(Integer userId, UserDTO customer)  throws UserException;
 
 	public String deactivateUser(Integer userId) throws UserException;
 

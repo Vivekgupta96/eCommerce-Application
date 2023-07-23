@@ -42,17 +42,14 @@ public class AppConfig {
 						
 				}
 			});
-			
-			
 		})
 		.authorizeHttpRequests(auth ->{
 			auth
 				.requestMatchers(HttpMethod.POST,"/ecom/customers").permitAll()
-				.requestMatchers(HttpMethod.PUT, "/ecom/customers/**").hasRole("ADMIN")
-				.requestMatchers(HttpMethod.DELETE, "ecom/customers/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.GET, "/ecom/customers/**").hasRole("CUSTOMER")
+				.requestMatchers(HttpMethod.DELETE, "/ecom/customers/**").hasRole("ADMIN")
 				.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 				.anyRequest().authenticated();
-			
 				})
 			.csrf(csrf -> csrf.disable())
 			.addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)

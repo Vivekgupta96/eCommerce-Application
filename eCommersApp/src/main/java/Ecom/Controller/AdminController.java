@@ -44,7 +44,7 @@ public class AdminController {
     @PutMapping("/updatepassword/{adminId}")
     public ResponseEntity<User> updateUserPassword(@PathVariable("adminId") Integer customerId, @RequestBody UserDTO userdto) {
         try {
-            User updatedUser = userService.updateUserPassword(customerId, userdto);
+            User updatedUser = userService.changePassword(customerId, userdto);
             return ResponseEntity.ok(updatedUser);
         } catch (UserException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

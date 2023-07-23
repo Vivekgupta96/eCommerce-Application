@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import Ecom.Service.UserService;
 
 @RestController
+@RequestMapping("/ecom")
 public class LoginController {
 
 	@Autowired

@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -81,6 +83,12 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();
+    
+    public void updatePassword(String newPassword, PasswordEncoder passwordEncoder) {
+        // Hash the new password before setting it
+        String hashedPassword = passwordEncoder.encode(newPassword);
+        this.setPassword(hashedPassword);
+    }
     
       
 }

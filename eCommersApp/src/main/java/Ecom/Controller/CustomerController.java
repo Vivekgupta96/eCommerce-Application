@@ -48,10 +48,10 @@ public class CustomerController {
 	}
 
 	@PutMapping("/updatepassword/{customerId}")
-	public ResponseEntity<User> updateUserPassword(@PathVariable("customerid") Integer customerId,
+	public ResponseEntity<User> updateUserPassword(@PathVariable("customerId") Integer customerId,
 			@RequestBody UserDTO userdto) {
 		try {
-			User updatedUser = userService.updateUserPassword(customerId, userdto);
+			User updatedUser = userService.changePassword(customerId, userdto);
 			return ResponseEntity.ok(updatedUser);
 		} catch (UserException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -88,4 +88,5 @@ public class CustomerController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
+	
 }

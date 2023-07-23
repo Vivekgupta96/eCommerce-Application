@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import Ecom.Enum.UserAccountStatus;
@@ -21,6 +22,9 @@ import Ecom.Service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {
@@ -78,21 +82,18 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(newAdmin);
 	}
 
-	@Override
-	public User updateUserPassword(Integer userId, UserDTO userdto) throws UserException {
-		User existingUser = userRepository.findById(userId).orElseThrow(() -> new UserException("User not found"));
-
-		if (existingUser.getPassword().equals(userdto.getOldPassword())) {
-			existingUser.setPassword(userdto.getNewPassword());
+	public User changePassword(Integer userId, UserDTO customer) throws UserException {
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserException("User not found"));
+		if (customer.getNewPassword().length() >= 5 && customer.getNewPassword().length() <= 10) {
+			user.updatePassword(customer.getNewPassword(), passwordEncoder);
+			return userRepository.save(user);
 		} else {
-			throw new UserException("Old password Mismatch");
+			throw new UserException("provide valid  password");
 		}
 
-		// Save the updated user in the repository
-		User updatedUser = userRepository.save(existingUser);
-		return updatedUser;
 	}
 
+	
 	@Override
 	public String deactivateUser(Integer userId) throws UserException {
 		User existingUser = userRepository.findById(userId).orElseThrow(() -> new UserException("User not found"));
@@ -116,5 +117,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return existingAllUser;
 	}
+
+	
 
 }
