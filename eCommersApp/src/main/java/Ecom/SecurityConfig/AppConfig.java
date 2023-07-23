@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AppConfig {
 	@Bean
 	public SecurityFilterChain springSecurityConfiguration(HttpSecurity http) throws Exception {
-
+       System.out.println("1");
 		http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			
 		.cors(cors ->{
@@ -45,12 +45,13 @@ public class AppConfig {
 		})
 		.authorizeHttpRequests(auth ->{
 			auth
-				.requestMatchers(HttpMethod.POST,"/ecom/customers","/ecom/admin").permitAll()
+				.requestMatchers(HttpMethod.POST,"/ecom/customers").permitAll()
+				.requestMatchers(HttpMethod.POST,"/ecom/admin").permitAll()
 				.requestMatchers(HttpMethod.GET,"/ecom/signIn").permitAll()
-				.requestMatchers(HttpMethod.GET, "/ecom/customers/**","/ecom/products/**").hasAnyRole("ADMIN","USER")
-				.requestMatchers(HttpMethod.DELETE, "/ecom/customers/**","/ecom/products/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.DELETE, "/ecom/customers/**","/ecom/products/**","/ecom/product-review/**","ecom/cart/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.GET,"/ecom/products/**").hasAnyRole("ADMIN","USER")
+				.requestMatchers(HttpMethod.PUT,"/ecom/products/**").hasRole("ADMIN")
 				.requestMatchers(HttpMethod.POST,"/ecom/products/**").hasRole("ADMIN")
-				.requestMatchers(HttpMethod.PUT, "/ecom/customers/**").hasRole("ADMIN")
 				.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 				.anyRequest().authenticated();
 				})
@@ -67,7 +68,7 @@ public class AppConfig {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-
+		System.out.println("2");
 		return new BCryptPasswordEncoder();
 
 	}

@@ -20,7 +20,7 @@ import Ecom.Service.ReviewService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/ecom/product/reviews")
+@RequestMapping("/ecom/product-reviews")
 public class ReviewController {
 
 	private final ReviewService reviewService;

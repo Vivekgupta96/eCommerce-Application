@@ -27,15 +27,15 @@ public class CustomerUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		Optional<Ecom.Model.User> opt = userRepository.findByEmail(username);
-
+		 System.out.println("9");
 		if (opt.isPresent()) {
-
 			Ecom.Model.User customer = opt.get();
 
 			List<GrantedAuthority> authorities = new ArrayList<>();
-
+			
 			SimpleGrantedAuthority sga = new SimpleGrantedAuthority(customer.getRole().toString());
 			authorities.add(sga);
+			 System.out.println("10");
 			return new org.springframework.security.core.userdetails.User(customer.getEmail(), customer.getPassword(),
 					authorities);
 		} else

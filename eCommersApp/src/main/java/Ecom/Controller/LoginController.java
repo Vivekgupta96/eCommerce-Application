@@ -22,7 +22,7 @@ public class LoginController {
 		System.out.println(auth); // this Authentication object having Principle object details
 
 		var customer = userService.getUserByEmailId(auth.getName());
-		
+		 System.out.println("11");
 	
 		return new ResponseEntity<>(customer.getFirstName() + " " + customer.getLastName() + "  Logged In Successfully",
 				HttpStatus.ACCEPTED);

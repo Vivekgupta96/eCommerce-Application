@@ -29,10 +29,12 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 
 		if (jwt != null) {
 			try {
+			     System.out.println("6"); 
 				jwt = jwt.substring(7);
 				SecretKey key = Keys.hmacShaKeyFor(SecurityConstants.JWT_KEY.getBytes());
 
 				Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+				
 				String username = String.valueOf(claims.get("username"));
 
 				String authorities = (String) claims.get("authorities");
@@ -49,11 +51,13 @@ public class JwtTokenValidatorFilter extends OncePerRequestFilter {
 		}
 
 		filterChain.doFilter(request, response);
+		 System.out.println("7"); 
 	}
 
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
 
+		 System.out.println("8"); 
 		return request.getServletPath().equals("/ecom/signIn");
 	}
 

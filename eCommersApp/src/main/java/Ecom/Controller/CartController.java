@@ -23,7 +23,7 @@ import Ecom.Model.Product;
 import Ecom.Service.CartService;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/ecom/cart")
 public class CartController {
 
     private final CartService cartService;

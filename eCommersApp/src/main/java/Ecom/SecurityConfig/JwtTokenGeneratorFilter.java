@@ -39,11 +39,12 @@ public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(new Date().getTime()+ 30000000)) 
                     .signWith(key).compact();
-                       
+    		System.out.println("3");         
             response.setHeader(SecurityConstants.JWT_HEADER, jwt);
  
         }
         filterChain.doFilter(request, response);	
+        System.out.println("4");  
 	}
 	
     private String populateAuthorities(Collection<? extends GrantedAuthority> collection) {
@@ -52,6 +53,7 @@ public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
         
         for (GrantedAuthority authority : collection) {
             authoritiesSet.add(authority.getAuthority());
+            System.out.println("5");  
         }
         return String.join(",", authoritiesSet);
    
