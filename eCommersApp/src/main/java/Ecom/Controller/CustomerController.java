@@ -35,7 +35,7 @@ public class CustomerController {
 		this.userService = userService;
 	}
 
-	@PostMapping("/register")
+	@PostMapping
 	public ResponseEntity<User> addUser(@Valid @RequestBody CustomerDTO user) {
 		
 		try {

@@ -30,7 +30,7 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
+    @PostMapping
     public ResponseEntity<User> addUser(@RequestBody AdminDTO user) {
         try {
         	user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -47,10 +47,9 @@ public class AppConfig {
 		})
 		.authorizeHttpRequests(auth ->{
 			auth
-				.requestMatchers(HttpMethod.POST,"/ecom/customers/register","/ecom/admin/register").permitAll()
-				.requestMatchers(HttpMethod.PUT, "/customers").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.POST,"/ecom/customers").permitAll()
+				.requestMatchers(HttpMethod.PUT, "/ecom/customers/**").hasRole("ADMIN")
 				.requestMatchers(HttpMethod.DELETE, "ecom/customers/**").hasRole("ADMIN")
-				.requestMatchers(HttpMethod.GET, "/customers/**").hasAnyRole("ADMIN","USER")
 				.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 				.anyRequest().authenticated();
 			
