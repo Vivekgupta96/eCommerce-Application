@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 		newCustomer.setFirstName(customer.getFirstName());
 		newCustomer.setLastName(customer.getLastName());
 		newCustomer.setPhoneNumber(customer.getPhoneNumber());
-		newCustomer.setRole(UserRole.ROLE_CUSTOMER);
+		newCustomer.setRole(UserRole.ROLE_USER);
 		newCustomer.setRegisterTime(LocalDateTime.now());
 		newCustomer.setUserAccountStatus(UserAccountStatus.ACTIVE);
 

@@ -45,9 +45,12 @@ public class AppConfig {
 		})
 		.authorizeHttpRequests(auth ->{
 			auth
-				.requestMatchers(HttpMethod.POST,"/ecom/customers").permitAll()
-				.requestMatchers(HttpMethod.GET, "/ecom/customers/**").hasRole("CUSTOMER")
-				.requestMatchers(HttpMethod.DELETE, "/ecom/customers/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.POST,"/ecom/customers","/ecom/admin").permitAll()
+				.requestMatchers(HttpMethod.GET,"/ecom/signIn").permitAll()
+				.requestMatchers(HttpMethod.GET, "/ecom/customers/**","/ecom/products/**").hasAnyRole("ADMIN","USER")
+				.requestMatchers(HttpMethod.DELETE, "/ecom/customers/**","/ecom/products/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.POST,"/ecom/products/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.PUT, "/ecom/customers/**").hasRole("ADMIN")
 				.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 				.anyRequest().authenticated();
 				})
