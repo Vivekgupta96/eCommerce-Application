@@ -74,6 +74,10 @@ https://localhost:8080/
 http://localhost:8080/swagger-ui/index.html
 ```
 
+![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(751).png)
+![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(752).png)
+![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(753).png)
+
 ## Links
 
 This project uses the following open source libraries:
