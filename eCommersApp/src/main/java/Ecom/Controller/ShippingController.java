@@ -9,17 +9,14 @@ import Ecom.Exception.ShippingException;
 import Ecom.Model.ShippingDetails;
 import Ecom.ModelDTO.ShippingDTO;
 import Ecom.Service.ShippingService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/ecom/order-shipping")
+@RequiredArgsConstructor
 public class ShippingController {
 
 	private final ShippingService shippingService;
-
-	@Autowired
-	public ShippingController(ShippingService shippingService) {
-		this.shippingService = shippingService;
-	}
 
 	@PostMapping("/{orderId}/{shipperId}")
 	public ResponseEntity<ShippingDetails> setShippingDetails(@PathVariable Integer orderId,

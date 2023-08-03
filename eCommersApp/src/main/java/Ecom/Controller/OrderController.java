@@ -24,7 +24,7 @@ import Ecom.ModelDTO.OrdersDTO;
 import Ecom.Service.OrdersService;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/eom/orders")
 public class OrderController {
 
 	private final OrdersService ordersService;

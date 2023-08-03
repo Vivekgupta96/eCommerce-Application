@@ -53,9 +53,9 @@ public class Orders {
     @OneToOne
     @JoinColumn(name="Payment_id")
     private Payment payment;
-
     
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    
+    @OneToOne
     @JoinColumn(name="ShippingDetails_id")
     private ShippingDetails shippingDetails;
     

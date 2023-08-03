@@ -22,7 +22,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AppConfig {
 	@Bean
 	public SecurityFilterChain springSecurityConfiguration(HttpSecurity http) throws Exception {
-       System.out.println("1");
 		http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			
 		.cors(cors ->{
@@ -68,7 +67,6 @@ public class AppConfig {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		System.out.println("2");
 		return new BCryptPasswordEncoder();
 
 	}

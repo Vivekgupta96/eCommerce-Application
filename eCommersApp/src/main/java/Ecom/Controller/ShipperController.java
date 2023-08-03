@@ -17,17 +17,14 @@ import Ecom.Exception.ShipperException;
 import Ecom.Model.Shipper;
 import Ecom.Service.ShipperService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/ecom/order-shippers")
 public class ShipperController {
 
 	private final ShipperService shipperService;
-
-	@Autowired
-	public ShipperController(ShipperService shipperService) {
-		this.shipperService = shipperService;
-	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Shipper> getShipperById(@PathVariable Integer id) {
