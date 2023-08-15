@@ -5,6 +5,8 @@ import Login from "../pages/LogIn";
 import AdminLogin from "../pages/AdminLogIn";
 import Registration from "../pages/Registration";
 import SingleProduct from "../pages/SingleProduct";
+import Cart from "../pages/Cart";
+import ShippingDetails from "../pages/ShippingDetails";
 import { Routes, Route } from "react-router-dom";
 
 const AllRoutes = () => {
@@ -18,6 +20,8 @@ const AllRoutes = () => {
         <Route path="/register-user" element={<Registration />} />
         <Route path="/single-product" element={<SingleProduct />} />
         <Route path="/products" element={<Product />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/save-address" element={<ShippingDetails />} />
       </Routes>
     </>
   );
