@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "../comp_css/Navbar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(location.state);
 
   const handleLoginClick = () => {
     navigate("/login");
@@ -21,9 +24,16 @@ const Navbar = () => {
         </div>
         <div className="auth-buttons">
           <button className="login-button" onClick={handleLoginClick}>
-            Log In
+            LogIn
           </button>
-          <button className="signup-button">Sign Up</button>
+          <button
+            className="signup-button"
+            onClick={() => {
+              navigate("/register-user");
+            }}
+          >
+            Sign Up
+          </button>
         </div>
       </nav>
     </>

@@ -4,9 +4,10 @@
     background-color: #394d5f;
     padding: 30px 0;
     color: whitesmoke;
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     bottom: 0;
+    margin-top: 50px;
 }
 /* Footer Grid */
 .footer-grid {

@@ -27,7 +27,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer-section">
-          <h4>E-Commerse BUSINESS</h4>
+          <h4>E-Commerse</h4>
           <ul>
             <li>Product App</li>
             <li>Sell on our Website</li>

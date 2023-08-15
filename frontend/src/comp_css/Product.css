@@ -1,0 +1,93 @@
+/* Product.css */
+
+.product-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px;
+}
+
+.filter-section {
+    background-color: white;
+    padding: 13px;
+    border: 4px solid #ddd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 70px;
+    margin-left: -9px;
+    width: 426px;
+}
+
+.filter-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.filter-section label {
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.filter-section select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+}
+
+
+.product-card {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(25% - 10px);
+    /* Four products in a line with spacing */
+    margin-top: 5px;
+   
+}
+
+
+.product-image1 img {
+    margin-top: 5px;
+    max-width: 57%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-info h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.product-price {
+    font-size: 18px;
+    color: #e67e22;
+    margin-top: 10px;
+}
+
+.product-info button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-info button:hover {
+    background-color: #2980b9;
+}

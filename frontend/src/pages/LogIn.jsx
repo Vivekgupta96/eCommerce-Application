@@ -17,9 +17,11 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(form);
+
+
     try {
       // Navigate to the specified route
-      navigate("/"); 
+      navigate("/",{replace:true,state:form.username}); 
     } catch (error) {
       console.error("Error navigating:", error);
     }
@@ -30,7 +32,7 @@ const Login = () => {
     <div className="login-form">
       {" "}
       {/* Use a class name for styling */}
-      <h1>Login Page</h1>
+      <h2 style={{textAlign:"center"}}>LogIn </h2>
       <form onSubmit={submitHandler}>
         <div className="form-group">
           <label>Username:</label>
