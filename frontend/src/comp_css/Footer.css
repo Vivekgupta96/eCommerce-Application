@@ -1,0 +1,90 @@
+/* Footer Container */
+/* Footer Container */
+.footer {
+    background-color: #394d5f;
+    padding: 30px 0;
+    color: whitesmoke;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+/* Footer Grid */
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Footer Section */
+.footer-section {
+    color: #333;
+}
+
+.footer-section h4 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: whitesmoke;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 20px;
+    color: whitesmoke;
+}
+
+/* Subscribe Box */
+.subscribe-box {
+    display: flex;
+    margin-top: 10px;
+}
+
+.subscribe-box input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.subscribe-box button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Footer Images */
+.footer-images {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-images img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Admin Access Link */
+.admin-link {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.admin-link a {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #aeabab;
+}
+
+.admin-link a:hover {
+    color: #f2e9e9;
+    border-bottom-color: #b7b1b1;
+}
