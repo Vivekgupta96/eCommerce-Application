@@ -7,6 +7,8 @@ const formData = {
   password: "",
 };
 const Login = () => {
+
+  
   const navigate = useNavigate();
   const [form, setForm] = useState(formData);
 
@@ -19,9 +21,12 @@ const Login = () => {
     console.log(form);
 
 
+
     try {
       // Navigate to the specified route
-      navigate("/",{replace:true,state:form.username}); 
+      //navigate("/",{replace:true,state:form.username}); 
+      navigate("/"); 
+      localStorage.setItem("name",form.username||"LogIn")
     } catch (error) {
       console.error("Error navigating:", error);
     }
@@ -35,8 +40,9 @@ const Login = () => {
       <h2 style={{textAlign:"center"}}>LogIn </h2>
       <form onSubmit={submitHandler}>
         <div className="form-group">
-          <label>Username:</label>
+          <label for="username" >Username:</label>
           <input
+            id="username"
             type="text"
             name="username"
             value={username}

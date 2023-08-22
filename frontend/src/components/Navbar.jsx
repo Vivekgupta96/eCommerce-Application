@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../comp_css/Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+ 
+  console.log(location);
 
   const handleLoginClick = () => {
     navigate("/login");
   };
-
 
   return (
     <>
@@ -34,13 +35,16 @@ const Navbar = () => {
           />
         </div>
         <div className="auth-buttons">
-          <button className="cart-button" onClick={() => {
+          <button
+            className="cart-button"
+            onClick={() => {
               navigate("/cart");
-            }}>
+            }}
+          >
             Cart
           </button>
           <button className="login-button" onClick={handleLoginClick}>
-            Log In
+            {localStorage.getItem("name")}
           </button>
           <button
             className="signup-button"

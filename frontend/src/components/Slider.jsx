@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import '../comp_css/Slider.css'; // 
+import React, { useState, useEffect } from "react";
+import "../comp_css/Slider.css"; //
 
 const Slider = ({ images, interval }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -10,19 +10,16 @@ const Slider = ({ images, interval }) => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, interval);
 
-    return () => clearInterval(slideInterval);
   }, [images, interval]);
-
+  
   return (
     <div className="slider">
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={image}
-          alt={`Slide ${index}`}
-          className={index === currentIndex ? 'slide active' : 'slide'}
-        />
-      ))}
+      <img
+        key={currentIndex}
+        src={images[currentIndex]}
+        alt={`Slide ${currentIndex}`}
+        // className={currentIndex === currentIndex ? "slide active" : "slide"}
+      />
     </div>
   );
 };
