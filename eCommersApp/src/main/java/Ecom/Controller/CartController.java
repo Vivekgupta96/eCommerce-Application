@@ -35,28 +35,25 @@ public class CartController {
 
     @PostMapping("/add-product")
     public ResponseEntity<Cart> addProductToCart(@RequestParam Integer userId, @RequestParam Integer productId) {
-        try {
-            Cart cart = cartService.addProductToCart(userId, productId);
-            return ResponseEntity.ok(cart);
-        } catch (CartException | ProductException | UserException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        Cart cart = cartService.addProductToCart(userId, productId);
+        return new ResponseEntity<>(cart,HttpStatus.CREATED);
+
     }
 
-    @PutMapping("/increase-productQty")
-    public ResponseEntity<Cart> increaseProductQuantity(@RequestParam Integer userId, @RequestParam Integer productId) {
+    @PutMapping("/increase-productQty/{cartId}/{productId}")
+    public ResponseEntity<Cart> increaseProductQuantity(@PathVariable Integer cartId, @PathVariable Integer productId) {
         try {
-            Cart cart = cartService.increaseProductQuantity(userId, productId);
+            Cart cart = cartService.increaseProductQuantity(cartId, productId);
             return ResponseEntity.ok(cart);
         } catch (CartException | UserException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
-    @PutMapping("/decrease-productQty")
-    public ResponseEntity<Cart> decreaseProductQuantity(@RequestParam Integer userId, @RequestParam Integer productId) {
+    @PutMapping("/decrease-productQty/{cartId}/{productId}")
+    public ResponseEntity<Cart> decreaseProductQuantity(@PathVariable Integer cartId, @PathVariable Integer productId) {
         try {
-            Cart cart = cartService.decreaseProductQuantity(userId, productId);
+            Cart cart = cartService.decreaseProductQuantity(cartId, productId);
             return ResponseEntity.ok(cart);
         } catch (CartException | UserException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -67,7 +64,7 @@ public class CartController {
     public ResponseEntity<String> removeProductFromCart(@PathVariable Integer cartId, @PathVariable Integer productId) {
         try {
             cartService.removeProductFromCart(cartId, productId);
-            String msg="Succesfully removes All Item";
+            String msg="Prodcut is removed from cart";
             return new ResponseEntity<String>(msg,HttpStatus.OK);
         } catch (CartException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -77,7 +74,7 @@ public class CartController {
     public ResponseEntity<String> removeAllProductFromCart(@PathVariable Integer cartId) {
         try {
             cartService.removeAllProductFromCart(cartId);
-            String msg="Succesfully removes All Item";
+            String msg="All product Remove From cart";
             return new ResponseEntity<String>(msg,HttpStatus.OK);
         } catch (CartException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -93,7 +90,4 @@ public class CartController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-
-    
-
 }

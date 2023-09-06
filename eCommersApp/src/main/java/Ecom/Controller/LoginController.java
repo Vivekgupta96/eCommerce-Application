@@ -1,5 +1,6 @@
 package Ecom.Controller;
 
+import Ecom.ModelDTO.UserSignInDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +18,15 @@ public class LoginController {
 	private UserService userService;
 
 	@GetMapping("/signIn")
-	public ResponseEntity<String> getLoggedInCustomerDetailsHandler(Authentication auth) {
-
-		System.out.println(auth); // this Authentication object having Principle object details
-
+	public ResponseEntity<UserSignInDetail> getLoggedInCustomerDetailsHandler(Authentication auth) {
 		var customer = userService.getUserByEmailId(auth.getName());
-		 System.out.println("11");
-	
-		return new ResponseEntity<>(customer.getFirstName() + " " + customer.getLastName() + "  Logged In Successfully",
-				HttpStatus.ACCEPTED);
-	}
+		UserSignInDetail signinSuceesData = new UserSignInDetail();
+		signinSuceesData.setId(customer.getUserId());
+		signinSuceesData.setFirstNAme(customer.getFirstName());
+		signinSuceesData.setLastName(customer.getLastName());
+		signinSuceesData.setSigninStatus("Success");
 
+		return new ResponseEntity<>(signinSuceesData, HttpStatus.OK);
+
+	}
 }

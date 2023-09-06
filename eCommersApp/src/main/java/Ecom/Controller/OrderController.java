@@ -24,7 +24,7 @@ import Ecom.ModelDTO.OrdersDTO;
 import Ecom.Service.OrdersService;
 
 @RestController
-@RequestMapping("/eom/orders")
+@RequestMapping("/ecom/orders")
 public class OrderController {
 
 	private final OrdersService ordersService;
@@ -34,10 +34,10 @@ public class OrderController {
 		this.ordersService = ordersService;
 	}
 
-	@PostMapping("/placed")
-	public ResponseEntity<Orders> addProductToCart(@RequestBody OrdersDTO orderDto) {
+	@PostMapping("/placed/{userid}")
+	public ResponseEntity<Orders> addProductToCart(@PathVariable("userid") Integer userid ){
 		try {
-			Orders placeOrder = ordersService.placeOrder(orderDto);
+			Orders placeOrder = ordersService.placeOrder(userid);
 			return ResponseEntity.ok(placeOrder);
 		} catch (CartException | ProductException | UserException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

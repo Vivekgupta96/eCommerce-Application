@@ -16,8 +16,6 @@ public class ProductServiceImpl implements ProductService {
 
 	private final ProductRepository productRepository;
 	
-	
-
 	@Autowired
 	public ProductServiceImpl(ProductRepository productRepository) {
 		this.productRepository = productRepository;
@@ -41,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 		existingProduct.setCategory(updatedProduct.getCategory());
 		existingProduct.setPrice(updatedProduct.getPrice());
 		existingProduct.setImageUrl(updatedProduct.getImageUrl());
-		existingProduct.setDescription(null);
+		existingProduct.setDescription(updatedProduct.getDescription());
 		
 		return productRepository.save(existingProduct);
 	}
@@ -85,5 +83,12 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.delete(existingProduct);
 	}
 
-	
+	@Override
+	public Product getSingleProduct(Integer productId) {
+
+		Product  single=productRepository.findById(productId).orElseThrow(()-> new ProductException("Product not found"));
+		return single;
+	}
+
+
 }

@@ -81,6 +81,16 @@ public class ProductController {
         }
     }
 
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<Product> getSingleProduct(@PathVariable Integer productId) {
+        try {
+           Product singleProsuct= productService.getSingleProduct(productId);
+            return new ResponseEntity<>(singleProsuct, HttpStatus.OK);
+        } catch (ProductException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @DeleteMapping("/{productId}")
     public ResponseEntity<String> removeProduct(@PathVariable Integer productId) {
         try {

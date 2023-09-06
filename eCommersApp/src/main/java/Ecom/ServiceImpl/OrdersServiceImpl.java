@@ -55,8 +55,8 @@ public class OrdersServiceImpl implements OrdersService {
 
 	// **************************************************************************************
 	@Override
-	public Orders placeOrder(OrdersDTO orderDTO) throws OrdersException {
-		User existingUser = userRepository.findById(orderDTO.getUserId())
+	public Orders placeOrder(Integer userId) throws OrdersException {
+		User existingUser = userRepository.findById(userId)
 				.orElseThrow(() -> new UserException("User Not Found In Database"));
 
 		Cart usercart = existingUser.getCart();

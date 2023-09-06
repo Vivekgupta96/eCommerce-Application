@@ -20,5 +20,6 @@ public interface ProductService {
 	
 	public void removeProduct(Integer productId)throws ProductException;
 
+	public Product getSingleProduct(Integer productId);
 }
  
