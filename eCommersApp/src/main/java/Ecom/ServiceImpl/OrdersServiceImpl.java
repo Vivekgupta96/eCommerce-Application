@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import Ecom.Enum.OrderStatus;
@@ -27,143 +27,134 @@ import Ecom.Service.OrdersService;
 import jakarta.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class OrdersServiceImpl implements OrdersService {
 
-	private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	private final OrderItemRepository orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final ProductRepository productRepository;
+    private final CartItemRepository cartItemRepository;
 
-	@Autowired
-	private ProductRepository productRepository;
+    private final CartRepository cartRepository;
 
-	@Autowired
-	private CartItemRepository cartItemRepository;
+    @Override
+    public OrdersDTO placeOrder(Integer userId) throws OrdersException {
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException("User Not Found In Database"));
 
-	@Autowired
-	private CartRepository cartRepository;
+        Cart usercart = existingUser.getCart();
+        if(usercart.getTotalAmount()==0){
+            throw new OrdersException("Add item To the cart first.......");
+        }
+        Integer cartId = usercart.getCartId();
 
-	@Autowired
-	public OrdersServiceImpl(OrderRepository orderRepository, UserRepository userRepository,
-			OrderItemRepository orderItemRepository) {
-		this.orderRepository = orderRepository;
-		this.userRepository = userRepository;
-		this.orderItemRepository = orderItemRepository;
+        Orders newOrder = new Orders();
 
-	}
+        newOrder.setOrderDate(LocalDateTime.now());
+        newOrder.setStatus(OrderStatus.PENDING);
 
-	// **************************************************************************************
-	@Override
-	public Orders placeOrder(Integer userId) throws OrdersException {
-		User existingUser = userRepository.findById(userId)
-				.orElseThrow(() -> new UserException("User Not Found In Database"));
+        existingUser.getOrders().add(newOrder);
+        newOrder.setUser(existingUser);
+        userRepository.save(existingUser);
+        orderRepository.save(newOrder);
 
-		Cart usercart = existingUser.getCart();
-		Integer cartId = usercart.getCartId();
+        List<OrderItem> orderItems = new ArrayList<>();
 
-		// Create the order entity and save it to the database
-		Orders newOrder = new Orders();
+        for (CartItem itemDTO : usercart.getCartItems()) {
+            System.out.println("inside the loop");
+            if (itemDTO.getCart().getCartId() == cartId) {
 
-		newOrder.setOrderDate(LocalDateTime.now());
-		newOrder.setStaus(OrderStatus.PENDING);
+                OrderItem orderItem = new OrderItem();// creating New orderItem;
 
-		existingUser.getOrders().add(newOrder);
-		newOrder.setUser(existingUser);
-		userRepository.save(existingUser);
-		orderRepository.save(newOrder);
-		// till now order save to user and database
-		System.out.println("1");
-		// Create order items entities and save them to the database
+                orderItem.setQuantity(itemDTO.getQuantity());
+                orderItem.setProduct(itemDTO.getProduct());
+                orderItem.setOrderId(newOrder.getOrderId());
+                orderItems.add(orderItem);
+                System.out.println("inside the loop and if");
+            }
+        }
 
-		List<OrderItem> orderItems = new ArrayList<>();
+        newOrder.setOrderItem(orderItems);
+        newOrder.setTotalAmount(usercart.getTotalAmount());
+        orderRepository.save(newOrder);
 
-		for (CartItem itemDTO : usercart.getCartItems()) {
-			System.out.println("inside the loop");
-			if (itemDTO.getCart().getCartId() == cartId) {
 
-				OrderItem orderItem = new OrderItem();// creating New orderItem;
+        usercart.setTotalAmount(usercart.getTotalAmount() - newOrder.getTotalAmount());
+        cartItemRepository.removeAllProductFromCart(cartId);
+        cartRepository.save(usercart);
 
-				orderItem.setQuantity(itemDTO.getQuantity());
-				orderItem.setProduct(itemDTO.getProduct());
-				orderItem.setOrderId(newOrder.getOrderId());
-				orderItems.add(orderItem);
-				System.out.println("inside the loop and if");
-			}
-		}
-		
-		newOrder.setOrderItem(orderItems);
-		newOrder.setTotalAmount(usercart.getTotalAmount());
-		orderRepository.save(newOrder);
+        OrdersDTO orderdata=new OrdersDTO();
+        orderdata.setOrderId(newOrder.getOrderId());
+        orderdata.setOrderAmount(newOrder.getTotalAmount());
+        orderdata.setStatus("Pending");
+        orderdata.setPaymentStatus("Pending");
+        orderdata.setOrderDate("Currebt Date");
+        return orderdata;
 
-		// removing all product from cart
-		usercart.setTotalAmount(usercart.getTotalAmount() - newOrder.getTotalAmount());
-		cartItemRepository.removeAllProductFromCart(cartId);
-		cartRepository.save(usercart);
-		System.out.println("exit");
-		return newOrder;
+    }
 
-	}
+    @Transactional
+    public Orders getOrdersDetails(Integer orderId) throws OrdersException {
 
-	@Transactional
-	public Orders getOrdersDetails(Integer orderId) throws OrdersException {
+        Orders order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrdersException("Order not found in the database."));
+        return order;
+    }
 
-		Orders order = orderRepository.findById(orderId)
-				.orElseThrow(() -> new OrdersException("Order not found in the database."));
-		return order;
-	}
+    @Override
+    public List<Orders> getAllUserOrder(Integer userId) throws OrdersException {
+        try {
+            List<Orders> orders = orderRepository.getAllOrderByUserId(userId);
+            if (orders.isEmpty()) {
+                throw new OrdersException("No orders found for the user in the database.");
+            }
+            return orders;
+        } catch (Exception e) {
+            throw new OrdersException("Failed to fetch orders for the user: " + e.getMessage());
+        }
+    }
 
-	@Override
-	public List<Orders> getAllUserOrder(Integer userId) throws OrdersException {
-		try {
-			List<Orders> orders = orderRepository.getAllOrderByUserId(userId);
-			if (orders.isEmpty()) {
-				throw new OrdersException("No orders found for the user in the database.");
-			}
-			return orders;
-		} catch (Exception e) {
-			throw new OrdersException("Failed to fetch orders for the user: " + e.getMessage());
-		}
-	}
+    @Override
+    public List<Orders> viewAllOrders() throws OrdersException {
 
-	@Override
-	public List<Orders> viewAllOrders() throws OrdersException {
+        List<Orders> orders = orderRepository.findAll();
 
-		List<Orders> orders = orderRepository.findAll();
+        if (orders.isEmpty()) {
+            throw new OrdersException("No orders found in the database.");
+        }
+        return orders;
+    }
 
-		if (orders.isEmpty()) {
-			throw new OrdersException("No orders found in the database.");
-		}
-		return orders;
-	}
+    @Override
+    public List<Orders> viewAllOrderByDate(Date date) throws OrdersException {
 
-	@Override
-	public List<Orders> viewAllOrderByDate(Date date) throws OrdersException {
+        List<Orders> orders = orderRepository.findByOrderDateGreaterThanEqual(date);
 
-		List<Orders> orders = orderRepository.findByOrderDateGreaterThanEqual(date);
+        if (orders.isEmpty()) {
+            throw new OrdersException("No orders found for the given date.");
+        }
 
-		if (orders.isEmpty()) {
-			throw new OrdersException("No orders found for the given date.");
-		}
+        return orders;
 
-		return orders;
+    }
 
-	}
+    @Override
+    public void deleteOrders(Integer userId, Integer Orderid) throws OrdersException {
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException("User Not Found In Database"));
+        Orders existingOrder = orderRepository.findById(Orderid)
+                .orElseThrow(() -> new UserException("order Not Found In Database"));
 
-	@Override
-	public void deleteOrders(Integer userId, Integer Orderid) throws OrdersException {
-		User existingUser = userRepository.findById(userId)
-				.orElseThrow(() -> new UserException("User Not Found In Database"));
-		Orders existingOrder = orderRepository.findById(Orderid)
-				.orElseThrow(() -> new UserException("order Not Found In Database"));
+        orderRepository.delete(existingOrder);
+    }
 
-		orderRepository.delete(existingOrder);
-	}
+    @Override
+    public Orders updateOrders(Integer ordersid, OrdersDTO orderDTo) throws OrdersException {
 
-	@Override
-	public Orders updateOrders(Integer ordersid, OrdersDTO orderDTo) throws OrdersException {
-	
-		return null;
-	}
+        return null;
+    }
 
 }

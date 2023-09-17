@@ -1,0 +1,108 @@
+
+.product-page {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /*this start the alignment of aligtment from start */
+    padding: 20px;
+    min-height: 90vh;
+}
+
+.filter-section {
+    background-color: white;
+    padding: 0px;
+    margin-right: 56px;
+    margin-left: 0px;
+    width: 25%;
+}
+
+.filter-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.filter-section label {
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.filter-section select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.product-list {
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Four products in a row with spacing */
+    gap: 15px;
+    row-gap: 20px;
+}
+
+.product-card {
+
+    border: 2px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
+    border-radius: 3px;
+    padding: 15px;
+}
+
+.product-image1 img {
+
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 5px;
+    max-width: 65%;
+    height: auto;
+}
+
+.product-info {
+    /* border: 2px solid green; */
+
+}
+
+.product-info h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.product-price {
+    font-size: 25px;
+    color: green;
+    margin-top: 10px;
+}
+
+.product-info button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+/* Add margin to the second button */
+.product-info button+button {
+    margin-left: 10px;
+
+}
+
+.product-info button:hover {
+    background-color: #2980b9;
+}

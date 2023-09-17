@@ -1,11 +1,9 @@
 package Ecom.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import Ecom.Exception.ShippingException;
 import Ecom.Model.ShippingDetails;
 import Ecom.ModelDTO.ShippingDTO;
 import Ecom.Service.ShippingService;
@@ -16,38 +14,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShippingController {
 
-	private final ShippingService shippingService;
+    private final ShippingService shippingService;
 
-	@PostMapping("/{orderId}/{shipperId}")
-	public ResponseEntity<ShippingDetails> setShippingDetails(@PathVariable Integer orderId,
-			@PathVariable Integer shipperId, @RequestBody ShippingDetails shippingDetails) {
-		try {
-			ShippingDetails savedShippingDetails = shippingService.setShippingDetails(orderId, shipperId,
-					shippingDetails);
-			return new ResponseEntity<>(savedShippingDetails, HttpStatus.CREATED);
-		} catch (ShippingException ex) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-	}
+    @PostMapping("/{orderId}/{shipperId}")
+    public ResponseEntity<ShippingDetails> setShippingDetails(@PathVariable Integer orderId,
+                                                              @PathVariable Integer shipperId,
+                                                              @Valid @RequestBody ShippingDetails shippingDetails) {
+        ShippingDetails savedShippingDetails = shippingService.setShippingDetails(orderId, shipperId,
+                shippingDetails);
+        return new ResponseEntity<>(savedShippingDetails, HttpStatus.CREATED);
+    }
 
-	@PutMapping("/{shippingId}")
-	public ResponseEntity<ShippingDetails> updateShippingAddress(@PathVariable Integer shippingId,
-			@RequestBody ShippingDTO shippingDTO) {
-		try {
-			ShippingDetails updatedShippingDetails = shippingService.updateShippingAddress(shippingId, shippingDTO);
-			return new ResponseEntity<>(updatedShippingDetails, HttpStatus.OK);
-		} catch (ShippingException ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    @PutMapping("/{shippingId}")
+    public ResponseEntity<ShippingDetails> updateShippingAddress(@PathVariable Integer shippingId,
+                                                                 @Valid @RequestBody ShippingDTO shippingDTO) {
+        ShippingDetails updatedShippingDetails = shippingService.updateShippingAddress(shippingId, shippingDTO);
+        return new ResponseEntity<>(updatedShippingDetails, HttpStatus.OK);
+    }
 
-	@DeleteMapping("/{shippingId}")
-	public ResponseEntity<Void> deleteShippingDetails(@PathVariable Integer shippingId) {
-		try {
-			shippingService.deleteShippingDetails(shippingId);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (ShippingException ex) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    @DeleteMapping("/{shippingId}")
+    public ResponseEntity<Void> deleteShippingDetails(@PathVariable Integer shippingId) {
+        shippingService.deleteShippingDetails(shippingId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

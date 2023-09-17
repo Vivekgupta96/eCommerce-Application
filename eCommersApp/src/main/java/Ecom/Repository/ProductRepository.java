@@ -8,11 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import Ecom.Model.Product;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	@Query("SELECT p FROM Product p  WHERE p.name like %:prduct%")
-	public Optional<List<Product>> findByName(@Param("prduct") String name);
+	public List<Product> findByName(@Param("prduct") String name);
 	
 	@Query("SELECT p FROM Product p  WHERE p.category like %:cat%")
 	public List<Product> getProductCategoryName(@Param("cat") String category);

@@ -12,7 +12,7 @@ import Ecom.ModelDTO.OrdersDTO;
 @Service 
 public interface OrdersService {
 	
-	public Orders placeOrder(Integer orderId) throws OrdersException;
+	public OrdersDTO placeOrder(Integer orderId) throws OrdersException;
 	
 	public Orders updateOrders(Integer ordersid,OrdersDTO orderDTo)throws OrdersException;
 	

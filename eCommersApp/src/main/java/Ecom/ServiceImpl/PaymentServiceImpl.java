@@ -52,7 +52,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setOrder(order);
         paymentRepository.save(payment);
        
-        order.setStaus(OrderStatus.SHIPPED);
+        order.setStatus(OrderStatus.SHIPPED);
 
         // Set the payment for the order
         order.setPayment(payment);

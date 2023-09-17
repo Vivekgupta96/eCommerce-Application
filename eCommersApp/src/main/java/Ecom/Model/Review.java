@@ -25,14 +25,14 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long reviewId;
- 
-   
-    @Size(max = 5,message = "Pls provide Rating  ,can Not Be Null")
-    @Column(name = "rating")
-    private int rating;
 
-    @NotNull(message = "Pls provide comment  ,can Not Be Null")
+    @Column(name = "rating")
+    @Size(max = 5,message = "Pls provide Rating  ,can Not Be Null")
+    private Integer rating;
+
     @Column(name = "comment")
+    @NotNull(message = "Pls provide comment  ,can Not Be Null")
+    @NotBlank(message = "Comment should be Filled")
     private String comment;
 
     @Column(name = "created_at")

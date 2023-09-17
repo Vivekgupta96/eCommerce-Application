@@ -1,5 +1,6 @@
 package Ecom.Controller;
 
+import Ecom.Exception.UserException;
 import Ecom.ModelDTO.UserSignInDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import Ecom.Service.UserService;
 
+import java.nio.channels.ScatteringByteChannel;
+
 @RestController
 @RequestMapping("/ecom")
 public class LoginController {
@@ -19,14 +22,17 @@ public class LoginController {
 
 	@GetMapping("/signIn")
 	public ResponseEntity<UserSignInDetail> getLoggedInCustomerDetailsHandler(Authentication auth) {
-		var customer = userService.getUserByEmailId(auth.getName());
-		UserSignInDetail signinSuceesData = new UserSignInDetail();
-		signinSuceesData.setId(customer.getUserId());
-		signinSuceesData.setFirstNAme(customer.getFirstName());
-		signinSuceesData.setLastName(customer.getLastName());
-		signinSuceesData.setSigninStatus("Success");
+		try {var customer = userService.getUserByEmailId(auth.getName());
+			UserSignInDetail signinSuceesData = new UserSignInDetail();
+			signinSuceesData.setId(customer.getUserId());
+			signinSuceesData.setFirstNAme(customer.getFirstName());
+			signinSuceesData.setLastName(customer.getLastName());
+			signinSuceesData.setSigninStatus("Success");
 
-		return new ResponseEntity<>(signinSuceesData, HttpStatus.OK);
+			return new ResponseEntity<>(signinSuceesData, HttpStatus.OK);}
+		catch(UserException ex ){
+			throw new UserException(" Invalid Password");
+		}
 
 	}
 }

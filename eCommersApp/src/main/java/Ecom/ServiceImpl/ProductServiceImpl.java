@@ -1,7 +1,9 @@
 package Ecom.ServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +13,12 @@ import Ecom.ModelDTO.ProductDTO;
 import Ecom.Repository.ProductRepository;
 import Ecom.Service.ProductService;
 
+
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
 	private final ProductRepository productRepository;
-	
-	@Autowired
-	public ProductServiceImpl(ProductRepository productRepository) {
-		this.productRepository = productRepository;
-	}
 
 	@Override
 	public Product addProduct(Product product) throws ProductException {
@@ -31,26 +30,32 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product updateProduct(Integer productId, ProductDTO updatedProduct) throws ProductException {
 
-		Product existingProduct = productRepository.findById(productId)
-				.orElseThrow(() -> new ProductException("Product with ID " + productId + " not found."));
+		Optional<Product> product = productRepository.findById(productId);
+		if(product.isEmpty()){
+			throw new ProductException("Product with ID " + productId + " not found.");
+		}
+		Product existingProduct= product.get();
 		
 		// Update the existing product's properties with the new data
+		System.out.println("before");
 		existingProduct.setName(updatedProduct.getName());
 		existingProduct.setCategory(updatedProduct.getCategory());
 		existingProduct.setPrice(updatedProduct.getPrice());
 		existingProduct.setImageUrl(updatedProduct.getImageUrl());
 		existingProduct.setDescription(updatedProduct.getDescription());
-		
-		return productRepository.save(existingProduct);
+		System.out.println("after");
+		 productRepository.save(existingProduct);
+		 return existingProduct;
 	}
 
 	@Override
 	public List<Product> getProductByName(String name) throws ProductException {
-		// Retrieve products by name from the database
-		List<Product> existProductByName = productRepository.findByName(name)
-				.orElseThrow(() -> new ProductException("Product Not found with name " + name));
 
-		return existProductByName;
+		List<Product> existProductByName = productRepository.findByName(name);
+				if(existProductByName.isEmpty()) {
+					throw new ProductException("Product Not found with name " + name);
+				}
+		       return existProductByName;
 	}
 
 	@Override

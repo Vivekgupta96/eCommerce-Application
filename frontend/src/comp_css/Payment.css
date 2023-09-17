@@ -1,0 +1,32 @@
+
+.payment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  .payment-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 549px;
+    text-align: left;
+}
+  
+  h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .payment-info, .user-info {
+    margin-bottom: 20px;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  /* Add more styling as needed */
+  

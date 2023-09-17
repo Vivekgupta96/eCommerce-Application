@@ -3,9 +3,8 @@ package Ecom.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import Ecom.Exception.CartException;
 import Ecom.Exception.ProductException;
 import Ecom.Exception.UserException;
@@ -20,6 +19,7 @@ import Ecom.Repository.UserRepository;
 import Ecom.Service.CartService;
 
 @Service
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
 	private final ProductRepository productRepository;
@@ -30,56 +30,46 @@ public class CartServiceImpl implements CartService {
 
 	private final UserRepository userRepository;
 
-	@Autowired
-	public CartServiceImpl(ProductRepository productRepository, CartRepository cartRepository,
-			UserRepository userRepository, CartItemRepository cartItemRepository) {
-		this.cartRepository = cartRepository;
-		this.userRepository = userRepository;
-		this.productRepository = productRepository;
-		this.cartItemRepository = cartItemRepository;
-	}
-
 	public Cart addProductToCart(Integer userId, Integer productId) throws CartException {
 
 		Product existingProduct = productRepository.findById(productId)
-				.orElseThrow(() -> new ProductException("Product Not Found"));
+				.orElseThrow(() -> new ProductException("Product not available in Stock..."));
 
 		User existingUser = userRepository.findById(userId)
 				.orElseThrow(() -> new UserException("User Not Found In Database"));
 
 		if (existingUser.getCart() != null) {
-			System.out.println("check cart");
+			System.out.println("Cart is alredy alloted...");
 			Cart userCart = existingUser.getCart();
 
 			List<CartItem> cartItems = userCart.getCartItems();
 			if (cartItems != null) {
-				System.out.println("check cart is not null alredy present");
+				System.out.println("cart item imside loop...");
 				for (int i = 0; i < cartItems.size(); i++) {
 					System.out.println("inside loop");
 					if (cartItems.get(i).getProduct().getProductId() == productId&&
 							cartItems.get(i).getCart().getCartId()==userCart.getCartId()) {
-						System.out.println("inside loop if ");
-						throw new CartException("Product Already in the Cart");
+						throw new CartException("Product Already in the Cart,Please Increase the Quantity");
 					}
 				}
 			}
-			CartItem cartItem = new CartItem();// Create a new cart item and add it to the cart
+			CartItem cartItem = new CartItem();
 			cartItem.setProduct(existingProduct);
 			cartItem.setQuantity(1);
 			cartItem.setCart(userCart);
 			userCart.getCartItems().add(cartItem);
-			// Update the cart total and save the changes
+
 			userCart.setTotalAmount(calculateCartTotal(cartItems));
 			cartRepository.save(userCart);
 			return userCart;
 
 		} else {
 
-			Cart newCart = new Cart();// Create a new cart for the user
+			Cart newCart = new Cart();
 			newCart.setUser(existingUser);
 			existingUser.setCart(newCart);
 
-			// Create a new cart item and add it to the cart
+
 			CartItem cartItem = new CartItem();
 
 			cartItem.setProduct(existingProduct);
@@ -89,8 +79,6 @@ public class CartServiceImpl implements CartService {
 			cartItem.setCart(newCart);
 
 			newCart.setTotalAmount(calculateCartTotal(newCart.getCartItems()));
-			// Update the cart total and save the
-			// changes
 			userRepository.save(existingUser);
 
 			return existingUser.getCart();
@@ -102,7 +90,7 @@ public class CartServiceImpl implements CartService {
 		for (CartItem item : cartItems) {
 			double itemPrice = item.getProduct().getPrice();
 			int itemQuantity = (item.getQuantity());
-			total = total + (itemPrice * itemQuantity);
+			total +=itemPrice * itemQuantity;
 		}
 		return total;
 	}
@@ -118,7 +106,7 @@ public class CartServiceImpl implements CartService {
 
 		Cart userCart = existingUser.getCart();
 		List<CartItem> cartItems = userCart.getCartItems();
-		
+
 		CartItem cartItemToUpdate = cartItems.stream()
 				.filter(item -> item.getProduct().getProductId().equals(productId)
 						&&item.getCart().getCartId().equals(userCart.getCartId())).findFirst()
@@ -126,15 +114,12 @@ public class CartServiceImpl implements CartService {
 
 		int quantity = cartItemToUpdate.getQuantity();
 		cartItemToUpdate.setQuantity(quantity + 1);
-
-		// Update the cart total and save the changes
 		userCart.setCartItems(cartItems);
 		userCart.setTotalAmount(calculateCartTotal(cartItems));
 		cartRepository.save(userCart);
 
 		return userCart;
 	}
-
 	@Override
 	public Cart decreaseProductQuantity(Integer userId, Integer productId) throws CartException {
 		User existingUser = userRepository.findById(userId)
@@ -152,22 +137,24 @@ public class CartServiceImpl implements CartService {
 				.orElseThrow(() -> new CartException("Cart Item Not Found"));
 
 		int quantity = cartItemToUpdate.getQuantity();
+		if(quantity==1){
+			throw new CartException("Product can not be Further decresse...");
+		}
 		if (quantity > 1) {
-			cartItemToUpdate.setQuantity(quantity - 1); // Decrease quantity by 1 or any desired decrement
+			cartItemToUpdate.setQuantity(quantity - 1);
 
-			// Update the cart total and save the changes
+
 			userCart.setCartItems(cartItems);
 			userCart.setTotalAmount(calculateCartTotal(cartItems));
 			cartRepository.save(userCart);
 		} else {
-			cartItems.remove(cartItemToUpdate);// Remove the cart item if the quantity becomes zero
-			userCart.setCartItems(cartItems); // Update the cart total and save the changes
+			cartItems.remove(cartItemToUpdate);
+			userCart.setCartItems(cartItems);
 			userCart.setTotalAmount(calculateCartTotal(cartItems));
 			cartRepository.save(userCart);
 		}
 		return userCart;
 	}
-
 	@Override
 	public void removeProductFromCart(Integer cartId, Integer productId) throws CartException {
 		Cart existingCart = cartRepository.findById(cartId).orElseThrow(() -> new CartException("Cart Not Found"));
@@ -181,7 +168,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<Product> getAllCartProduct(Integer cartId) throws CartException {
+	public Cart getAllCartProduct(Integer cartId) throws CartException {
 		Cart existingCart = cartRepository.findById(cartId).orElseThrow(() -> new CartException("Cart Not Found"));
 
 		List<CartItem> cartItems = existingCart.getCartItems();
@@ -193,7 +180,10 @@ public class CartServiceImpl implements CartService {
 				products.add(product);
 			}
 		}
-		return products;
+		if(products.isEmpty()){
+			throw new CartException("Cart is Empty...");
+		}
+		return existingCart;
 	}
 
 	@Override

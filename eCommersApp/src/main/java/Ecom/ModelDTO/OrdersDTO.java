@@ -7,9 +7,10 @@ import lombok.Data;
 @Data
 public class OrdersDTO {
 
-	
-	private Integer userId;
-    private Double totalAmount;
-    
-   
+    private Integer orderId;
+    private String status;
+    private String orderDate;
+    private Double orderAmount;
+    private String paymentStatus;
+
 }

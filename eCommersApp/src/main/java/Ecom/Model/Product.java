@@ -51,7 +51,7 @@ public class Product {
 
     @NotNull(message = "Product price is Mandatory ,can Not Be Null")
     @Column(name = "price")
-    private double price;
+    private Double price;
  
     @NotNull(message = "Product category_name is Mandatory ,can Not Be Null")
   	@NotBlank(message = "Product category_name is Mandatory")
