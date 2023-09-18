@@ -36,7 +36,9 @@ const Cart = () => {
         console.error("Error fetching data from the API: ", error);
       });
   };
-
+  useEffect(() => {
+    fetchCartData();
+  }, [cartId, totalAmount]);
   const emptyCart = () => {
     api
       .delete(`/ecom/cart/empty-Cart/${cartId}`)
@@ -93,9 +95,7 @@ const Cart = () => {
       });
   };
 
-  useEffect(() => {
-    fetchCartData();
-  }, [cartId, totalAmount]);
+
   return (
     <div className="cart-page">
       {cartData.cartItems?.length > 0 ? (

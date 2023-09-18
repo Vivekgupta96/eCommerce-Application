@@ -13,8 +13,8 @@ const Product = () => {
   let userid = localStorage.getItem("userid");
 
   useEffect(() => {
-    api
-      .get("/ecom/products/all")
+    axios
+      .get("http://127.0.0.1:8080/ecom/products/all")
       .then((response) => {
         setProducts(response.data);
         filterProducts(selectedCategory, selectedPrice, response.data);
@@ -35,7 +35,12 @@ const Product = () => {
         alert("product added to Cart");
       })
       .catch((error) => {
-        alert("Product Alredy In cart");
+        if (error.response && error.response.data) {
+          alert(error.response.data.message); 
+        } else {
+          alert("Error To adding Product . Please try again later.");
+          console.error("Error registering:", error);
+        }
       });
   };
 

@@ -21,9 +21,9 @@ const OrderDetails = () => {
   };
 
   const handeldeleteOrder = (orderId) => {
-    api
+    axios
       .delete(
-        `/ecom/orders/users/${userId}/orders/${orderId}`
+        `http://127.0.0.1:8080/ecom/orders/users/${userId}/${orderId}`
       )
       .then((response) => {
         setMsg(response.data);

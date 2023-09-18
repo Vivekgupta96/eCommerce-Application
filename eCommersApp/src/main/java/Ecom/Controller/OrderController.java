@@ -57,7 +57,7 @@ public class OrderController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @DeleteMapping("/users/{userId}/orders/{orderId}")
+    @DeleteMapping("/users/{userId}/{orderId}")
     public ResponseEntity<String> deleteOrders(@PathVariable Integer userId, @PathVariable Integer orderId) {
         ordersService.deleteOrders(userId, orderId);
         return new ResponseEntity<>("Order successfully deleted.", HttpStatus.OK);

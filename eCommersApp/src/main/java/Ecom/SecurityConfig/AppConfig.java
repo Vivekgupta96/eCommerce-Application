@@ -46,7 +46,8 @@ public class AppConfig {
                     auth
                             .requestMatchers(HttpMethod.POST, "/ecom/admin").permitAll()
                             .requestMatchers(HttpMethod.POST, "/ecom/customers").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/ecom/signIn", "/ecom/product-reviews/**").permitAll()
+                            .requestMatchers(HttpMethod.DELETE, "/ecom/orders/users/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/ecom/signIn", "/ecom/product-reviews/**","/ecom/products/**").permitAll()
 
                             .requestMatchers(
                                     HttpMethod.POST,
@@ -84,22 +85,22 @@ public class AppConfig {
                                     "/ecom/products/**",
                                     "/ecom/product-reviews/**",
                                     "/ecom/customer-addresses/**",
-                                    "/ecom/orders/**",
-                                    "/ecom/cart/**", "/ecom/order-shipping/**",
+//                                    "/ecom/orders/users/**",
+                                    "/ecom/order-shipping/**",
                                     "/ecom/order-shippers/**"
 
                             ).hasRole("ADMIN")
                             .requestMatchers(
                                     HttpMethod.DELETE,
-                                    "/ecom/cart/**",
-                                    "/ecom/orders/**"
+                                    "/ecom/cart/remove-product/**"
+//                                    "/ecom/orders/users/**"
                             ).hasRole("USER")
 
                             .requestMatchers(
                                     HttpMethod.GET,
-                                    "/ecom/products/**",
+
                                     "/ecom/customer-addresses/**",
-                                    "/ecom/cart/**",
+                                    "/ecom/cart/products/**",
                                     "/ecom/orders/**",
                                     "/ecom/order-shippers",
                                     "/ecom/order-payments/**"

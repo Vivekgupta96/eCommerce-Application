@@ -28,7 +28,7 @@ import lombok.Data;
 @Entity
 @Table(name = "Orders")
 public class Orders {
-	
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
@@ -40,24 +40,24 @@ public class Orders {
     @Column(name = "order_date")
     private LocalDateTime orderDate;
 
-   
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    
+
     private double totalAmount;
-    
+
     @OneToMany( cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<OrderItem> orderItem= new ArrayList<>();
-    
+
     @OneToOne
     @JoinColumn(name="Payment_id")
     private Payment payment;
-    
-    
+
+
     @OneToOne
     @JoinColumn(name="ShippingDetails_id")
     private ShippingDetails shippingDetails;
-    
-    
+
+
 }
