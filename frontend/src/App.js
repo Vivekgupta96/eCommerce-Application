@@ -11,7 +11,8 @@ function App() {
   const isRestrictedPath = [
     "/login",
     "/register-user",
-    "/admin-login",
+   "/admin-Login",
+    "/admin"
   ].includes(location.pathname);
 
   return (

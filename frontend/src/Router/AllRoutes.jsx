@@ -13,6 +13,7 @@ import Cart from "../pages/Cart";
 import ShippingDetails from "../pages/ShippingDetails";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../Router/ProtectedRoute";
+import Admin from "../pages/Admin";
 
 const AllRoutes = () => {
   return (
@@ -32,6 +33,7 @@ const AllRoutes = () => {
         </Route>
 
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/register-user" element={<Registration />} />
         <Route path="/product/:productId" element={<SingleProduct />} />
         <Route path="/products" element={<Product />} />

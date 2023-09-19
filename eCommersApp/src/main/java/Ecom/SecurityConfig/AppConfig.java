@@ -73,7 +73,6 @@ public class AppConfig {
                             .requestMatchers(
                                     HttpMethod.PUT,
                                     "/ecom/admin/**",
-                                    "/ecom/products/**",
                                     "/ecom/product-reviews/**",
                                     "/ecom/customer-addresses/**",
                                     "/ecom/cart/**", "/ecom/order-shipping/**"

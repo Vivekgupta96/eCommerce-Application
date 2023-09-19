@@ -61,40 +61,47 @@ const Login = () => {
   const { username, password } = form;
 
   return (
-    <div className="loginConatiner" style={bg}>
-      <div className="login-form">
-        <h2 style={{ textAlign: "center" }}>LogIn </h2>
-        <form onSubmit={submitHandler}>
-          <div className="form-group">
-            <label htmlFor="username">Username:</label>
-            <input
-              id="username"
-              type="text"
-              name="username"
-              value={username}
-              onChange={setHandlerChange}
-            />
-          </div>
-          <br />
-          <div className="form-group">
-            <label>Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={setHandlerChange}
-            />
-          </div>
-          <div className="form-group">
-            <input type="submit" value="Login" />
-            <p>
-              Don't have an account?{" "}
-              <Link to="/register-user">Register here</Link>
-            </p>
-          </div>
-        </form>
+    <>
+    <div style={bg}>
+      <h1 style={{ textAlign: "center", color: "White", margin: "20px" }}>
+        Welcome To User login Page
+      </h1>
+      <div className="loginConatiner" >
+        <div className="login-form">
+          <h2 style={{ textAlign: "center" }}>LogIn </h2>
+          <form onSubmit={submitHandler}>
+            <div className="form-group">
+              <label htmlFor="username">Username:</label>
+              <input
+                id="username"
+                type="text"
+                name="username"
+                value={username}
+                onChange={setHandlerChange}
+              />
+            </div>
+            <br />
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={setHandlerChange}
+              />
+            </div>
+            <div className="form-group">
+              <input type="submit" value="Login" />
+              <p>
+                Don't have an account?{" "}
+                <Link to="/register-user">Register here</Link>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

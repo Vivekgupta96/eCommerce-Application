@@ -1,0 +1,42 @@
+.admincontainer{
+   min-height: 100vh;
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+   padding: 10px;
+}
+.productConatiner{
+    border: 1px solid grey; 
+    width: 70%;
+    
+}
+
+
+.boxConatiner {
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 20px; 
+    width: 30%;
+    margin: 0 auto; 
+  }
+  
+  .boxConatiner ul {
+    list-style-type: none; 
+    padding: 0;
+  }
+  
+  .boxConatiner ul li {
+    font-size: 18px; 
+    margin: 10px 0; 
+    padding: 10px; 
+    
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    text-align: center; 
+  }
+  
+  .boxConatiner ul li:hover {
+    background-color: #f0f0f0; /* Background color on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
