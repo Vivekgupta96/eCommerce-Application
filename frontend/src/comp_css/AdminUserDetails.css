@@ -1,0 +1,42 @@
+.admin-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.user-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    width: 600px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.user-info {
+    width: 60%;
+}
+
+.user-address {
+    width: 40%;
+}
+
+.user-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.user-card p {
+    margin: 5px 0;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}

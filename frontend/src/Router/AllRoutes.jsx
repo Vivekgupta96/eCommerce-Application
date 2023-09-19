@@ -12,8 +12,9 @@ import SingleProduct from "../pages/SingleProduct";
 import Cart from "../pages/Cart";
 import ShippingDetails from "../pages/ShippingDetails";
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "../Router/ProtectedRoute";
+import { Privateroute,Privaterouteadmin } from "../Router/ProtectedRoute";
 import Admin from "../pages/Admin";
+import NotFound from "../components/NotFound";
 
 const AllRoutes = () => {
   return (
@@ -23,7 +24,7 @@ const AllRoutes = () => {
         <Route path="/product" element={<Product />} />
         <Route path="/login" element={<Login />} />
 
-        <Route path="/user" element={<ProtectedRoute />}>
+        <Route path="/user" element={<Privateroute />}>
           <Route path="cart" element={<Cart />} />
           <Route path="save-address" element={<ShippingDetails />} />
           <Route path="order-details" element={<OrderDetails />} />
@@ -32,11 +33,14 @@ const AllRoutes = () => {
           <Route path="profile" element={<Profile />} />
         </Route>
 
+        <Route path="/admin" element={<Privaterouteadmin />}>
+          <Route path="admin" element={<Admin />} />
+        </Route>
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/admin" element={<Admin />} />
         <Route path="/register-user" element={<Registration />} />
         <Route path="/product/:productId" element={<SingleProduct />} />
         <Route path="/products" element={<Product />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

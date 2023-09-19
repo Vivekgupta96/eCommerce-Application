@@ -30,8 +30,8 @@ const AdminLogin = () => {
       if (response.headers.authorization != undefined) {
         localStorage.setItem("jwtToken", response.headers.authorization);
         localStorage.setItem("adminid", response.data.id);
-        alert("Login successfully");
-        navigate("/admin");
+        alert("Admin Login successfully");
+        navigate("/admin/admin");
       } else {
         alert("Invalid Credential");
         console.error("JWT retrieval failed");

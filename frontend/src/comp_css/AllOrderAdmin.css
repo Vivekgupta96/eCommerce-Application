@@ -1,0 +1,47 @@
+
+.admin-orders {
+    /* border: 2px solid red; */
+}
+
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 10px;
+    width: 90%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border: 1px solid rgb(203, 200, 200);
+}
+
+.orderpart {
+   width: 50%;
+}
+
+.customerdetails {
+    margin-left: 15px;
+    width: 50%;
+}
+
+.order-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.order-card p {
+    margin: 5px 0;
+}
+
+.order-item {
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}

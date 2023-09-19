@@ -4,21 +4,22 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useLocation } from "react-router-dom";
 
-
-
 function App() {
   const location = useLocation();
   const isRestrictedPath = [
     "/login",
     "/register-user",
-   "/admin-Login",
-    "/admin"
+    "/admin-Login",
+    "/admin/admin",
+    "*"
   ].includes(location.pathname);
 
   return (
-    <div  >
+    <div >
       {!isRestrictedPath && <Navbar />}
+      <div style={{minHeight:"90vh"}}>
       <AllRoutes />
+      </div>
       {!isRestrictedPath && <Footer />}
     </div>
   );

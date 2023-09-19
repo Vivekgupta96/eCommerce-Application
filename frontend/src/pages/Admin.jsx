@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../comp_css/Admin.css";
 import AddProduct from "../components/AddProduct";
-import AddCustomerAdmin from "../components/AllCustomerAdmin";
+import AddCustomerAdmin from "../components/AdminUserDetails";
 import AddOrderAdmin from "../components/AllOrderAdmin";
 import AllProductAdmin from "../components/AllProductAdmin";
 
