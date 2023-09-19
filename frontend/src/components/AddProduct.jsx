@@ -1,16 +1,18 @@
-
-import React, { useState } from 'react';
-import axios from 'axios'; 
-import '../comp_css/AddProduct.css'; 
-
+import React, { useState } from "react";
+import axios from "axios";
+import api from "../Router/api";
+import "../comp_css/AddProduct.css";
+import { Link, useNavigate } from "react-router-dom";
 
 function AddProduct() {
+  const navigate = useNavigate();
   const [product, setProduct] = useState({
-    name: '',
-    imageUrl: '',
-    description: '',
+    name: "",
+    imageUrl: "",
+    description: "",
     price: 0,
-    category: '',
+    category: "",
+    available: true,
   });
 
   const handleChange = (e) => {
@@ -22,29 +24,30 @@ function AddProduct() {
     e.preventDefault();
 
     try {
-      // Send a POST request to your server with the product data
-      const response = await axios.post('/api/addProduct', product);
-
-      // Handle the response as needed
-      console.log('Product added successfully:', response.data);
-
-      // Optionally, you can clear the form after successful submission
+      const response = await api.post("/ecom/products/add", product);
+      console.log("Product added successfully:", response.data);
       setProduct({
-        name: '',
-        imageUrl: '',
-        description: '',
+        name: "",
+        imageUrl: "",
+        description: "",
         price: 0,
-        category: '',
+        category: "",
+        available: true,
       });
+      alert("Product Added Successfully......");
+      // Redirect to the admin page after successful submission
+      navigate("/admin");
     } catch (error) {
-      // Handle any errors that occur during the POST request
-      console.error('Error adding product:', error);
+      alert(error.response.data.message);
+      console.error("Error adding product:", error.response.data);
     }
   };
 
+  console.log(product);
+
   return (
-    <div className="add-product-container">
-      <h2>Add Product</h2>
+    <div className="adminAddProduct">
+      <h2 style={{ textAlign: "center" }}>Add Product</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group">
           <label htmlFor="name">Product Name:</label>
@@ -92,16 +95,20 @@ function AddProduct() {
         </div>
         <div className="input-group">
           <label htmlFor="category">Category:</label>
-          <input
-            type="text"
+          <select
             id="category"
             name="category"
             value={product.category}
             onChange={handleChange}
-            placeholder="Category"
-          />
+          >
+            <option value="">Select a category</option>
+            <option value="fruits">Fruits</option>
+            <option value="vegetable">Vegetables</option>
+            <option value="Electronic">Electronic</option>
+            <option value="gadgets">Gadgets</option>
+          </select>
         </div>
-        {/* Add more input fields for other product details */}
+
         <button type="submit">Add Product</button>
       </form>
     </div>

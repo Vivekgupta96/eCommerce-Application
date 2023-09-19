@@ -1,72 +1,65 @@
+.product-container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+}
 
-.product-container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    /* gap: 20px; */
-  }
-  
-  .product-card {
-    display: flex;
-    align-items: start;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-    width: 80%; 
-    margin-bottom: 5px; 
-  }
-  
-  .product-image1 {
-    flex: 1;
-    padding: 10px;
-  }
-  
-  .product-image1 img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .product-info {
-    flex: 2;
-    text-align: start;
-    margin-top: 10px;
-    padding: 10px; 
-  }
-  
-  .product-info h2 {
-    font-size: 18px;
-    margin: 5px 0;
-  }
-  
-  .product-info p {
-    margin: 5px 0;
-  }
-  
-  .product-price {
-    color: green;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    padding: 10px; 
-  }
-  
-  button {
-    flex: 1;
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+.product-card1 {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  width: 80%;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 40px;
+}
+
+.product-image11 {
+  flex: 1;
+  padding: 10px;
+}
+
+.product-image11 img {
+  width: 60%;
+  height: auto;
+}
+
+.product-info1 {
+  flex: 2;
+  text-align: start;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.product-info1 h2 {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.product-info1 p {
+  margin: 5px 0;
+}
+
+.product-price1 {
+  color: green;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.button-container1 {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.button-container1 button {
+  margin-right: 10px; 
+}
+
+button:hover {
+  background-color: #0056b3;
+}
