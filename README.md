@@ -1,9 +1,11 @@
-# Restful API for Online eCommerce Application using SpringBoot with Spring Security with JWT Implementation
+# Restful API for Online eCommerce Application using SpringBoot and Reactjs for frontEnd with Spring Security with JWT Implementation 
 
-This Applicationp is a eCommerce Application with Spring Boot API with All endPoint for Ecommerse Application
+An eCommerce Application backend with Java Spring Boot with frontend using the Reactjs
 
-*  Developed this REST API for an Online eCommerce Applicationn. 
-* This API performs all the fundamental CRUD operations of any Online eCommerce Applicationn with user validation at every step.
+
+* Welcome to the documentation for the Ecommerce API, a powerful RESTful API for an Online eCommerce Application developed using Spring Boot, Spring Security with JWT implementation, and React for the frontend. This API provides comprehensive endpoints to support various features of an Ecommerce Application.
+
+### Deployed link:    https://eccomers96.netlify.app/
 
 
 ## Tech Stack and Technology Used
@@ -11,14 +13,17 @@ This Applicationp is a eCommerce Application with Spring Boot API with All endPo
 * Java
 * Spring Framework
 * Spring Boot
+* JavaScript
+* React
 * Spring Data JPA
 * Hibernate
-* MySQL
+* MySQL (DataBase)
 * Swagger
 * Spring Security
 * JSON Web Tokens (JWT)
 * BCrypt
 * Maven
+* Axios
   
 
   
@@ -27,9 +32,9 @@ This Applicationp is a eCommerce Application with Spring Boot API with All endPo
 
 
 ## Features
-* User  and Admin registration and login with JWT authentication
+* User registration and login with JWT  authentication
 * Password encryption using BCrypt
-* Role-based authorization with Spring Security
+* Role-based authorization with Spring Security for user and admin
 * Customized access denied handling
 * User Module
 * Admin Module
@@ -73,6 +78,64 @@ In the file `application.configure` you must edit the parameters `spring.datasou
 https://localhost:8080/
 http://localhost:8080/swagger-ui/index.html
 ```
+
+
+* To Get Access as admin , you have to use below query for register the admin for the first time in MySQL databse folling are details below
+
+```
+step:1 
+use ecomdb;
+
+step:2
+
+INSERT INTO users (email, password, first_name, last_name, phone_number,user_role,user_account_status)
+VALUES ('admin@gmail.com', 'admin@1234', 'Admin', 'Admin', '9999999999',ROLE_ADMIN,ACTIVE);
+
+step:3
+Admin Login using credetials ,now you are ready to do all aldmin operation
+
+```
+## For Running frontend in Local Machine
+* Getting Started
+
+- Before you can run the React frontend, make sure you have the following prerequisites installed on your machine:
+
+- Node.js: Ensure you have Node.js installed. 
+
+
+### Installation
+- Once you have the prerequisites in place, follow these steps to install the required packages for the React frontend:
+
+- Open your terminal and navigate to the root directory of the React frontend project. This is the directory where you find the package.json file.
+
+- Run the following command to install all the necessary packages:
+
+```
+npm install
+```
+- This command will download and install all the dependencies listed in the package.json file.
+
+###  Running the Application
+- To run the React frontend locally, follow these steps:
+
+- Open your terminal and navigate to the root directory of the React frontend project.
+
+- Run the following command to start the development server:
+
+```
+npm start
+```
+
+Open your web browser and navigate to the following URL:
+
+```
+http://localhost:3000
+```
+
+You should now see the React frontend of the Ecommerce Application running locally.
+
+
+### Below are the endPoint
 
 ![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(759).png)
 
