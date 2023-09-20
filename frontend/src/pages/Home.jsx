@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Slider from "../components/Slider";
 
 import "../comp_css/Slider.css"
@@ -42,6 +42,12 @@ const Home = () => {
     marginTop: "10px",
     marginBottom: "10px",
   };
+  useEffect(() => {
+    document.title = 'Ecommerse | Home Page';
+    return () => { 
+      document.title = 'Ecommerse App';
+    };
+  }, []); 
 
   return (
     <>

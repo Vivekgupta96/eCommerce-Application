@@ -62,8 +62,7 @@ public class Product {
     @JsonIgnore
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private List<OrderItem> orderItem= new ArrayList<>();;
-    
-    @JsonIgnore
+
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private List<Review> reviews= new ArrayList<>();;
     

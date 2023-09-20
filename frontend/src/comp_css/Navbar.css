@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #0e2e4a;
-  padding: 16px 40px;
+  padding: 10px 50px;
   color: white;
 }
 
@@ -12,24 +12,37 @@
   font-weight: bold;
 }
 
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 48px;
+  width: 40px;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
 .search-bar input {
   width: 300px;
-  padding: 7px;
   border: 2px solid #ccc;
   border-radius: 9px;
 }
 
-.auth-buttons button {
-  padding: 8px 16px;
-  background-color: transparent;
-  border: 1px solid white;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  margin-left: 10px;
+.iconbutton {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 40px;
 }
 
-.auth-buttons button:hover {
-  background-color: white;
-  color: #333;
+.cart-icon {
+  width: 30px;
+  height: 30px;
+
 }

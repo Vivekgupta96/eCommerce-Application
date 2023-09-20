@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from '../Router/api'
+import api from "../Router/api";
 import "../comp_css/Cart.css";
 
 const Cart = () => {
@@ -36,7 +36,10 @@ const Cart = () => {
         console.error("Error fetching data from the API: ", error);
       });
   };
+
   useEffect(() => {
+    document.title = "Ecommerse | Cart";
+
     fetchCartData();
   }, [cartId, totalAmount]);
   const emptyCart = () => {
@@ -54,9 +57,7 @@ const Cart = () => {
 
   const removeProductfromCart = (productid) => {
     api
-      .delete(
-        `/ecom/cart/remove-product/${cartId}/${productid}`
-      )
+      .delete(`/ecom/cart/remove-product/${cartId}/${productid}`)
       .then((response) => {
         alert("Product removed from cart");
         fetchCartData();
@@ -68,9 +69,7 @@ const Cart = () => {
 
   const increaseCount = (productid) => {
     api
-      .put(
-        `/ecom/cart/increase-productQty/${cartId}/${productid}`
-      )
+      .put(`/ecom/cart/increase-productQty/${cartId}/${productid}`)
       .then((response) => {
         setTotalAmount(response.data.totalAmount);
         fetchCartData();
@@ -82,9 +81,7 @@ const Cart = () => {
 
   const decreaseCount = (productid) => {
     api
-      .put(
-        `ecom/cart/decrease-productQty/${cartId}/${productid}`
-      )
+      .put(`ecom/cart/decrease-productQty/${cartId}/${productid}`)
       .then((response) => {
         setTotalAmount(response.data.totalAmount);
         fetchCartData();
@@ -94,7 +91,6 @@ const Cart = () => {
         alert("Product can be further decrese....");
       });
   };
-
 
   return (
     <div className="cart-page">
@@ -154,7 +150,6 @@ const Cart = () => {
         <h2>Total Cart Amount: </h2>
         <h2>${"   " + totalAmount}</h2>
         <div className="counter-box">
-          
           <div>
             <button onClick={orderPlaced}>Order Placed</button>
           </div>

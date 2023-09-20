@@ -103,8 +103,8 @@ function AddProduct() {
           >
             <option value="">Select a category</option>
             <option value="fruits">Fruits</option>
-            <option value="vegetable">Vegetables</option>
-            <option value="Electronic">Electronic</option>
+            <option value="vegetables">Vegetables</option>
+            <option value="electronics">Electronic</option>
             <option value="gadgets">Gadgets</option>
           </select>
         </div>

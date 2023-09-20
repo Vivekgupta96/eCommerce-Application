@@ -21,6 +21,14 @@ const formData = {
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState(formData);
+  
+  useEffect(() => {
+    document.title = 'Ecommerse | LogIn';
+    return () => { 
+      document.title = 'Ecommerse App';
+    };
+  }, []); 
+
 
   const setHandlerChange = (e) => {
     const val = e.target.value;

@@ -4,14 +4,14 @@ import { useNavigate, useNavigation } from "react-router-dom";
 import UpdatePassword from "../components/UpdatePassword";
 import Profile from "../components/Profile";
 import UpdateAddress from "../components/UpdateAddress";
-import api from '../Router/api'
+import api from "../Router/api";
 
 import "../comp_css/order.css";
 
 const OrderDetails = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userid");
-  const [msg, setMsg] = useState("");
+  const [deleted, setDeleted] = useState(false);
   const [allOrder, setAllOrder] = useState([]);
   const [selectedComponent, setSelectedComponent] = useState(null);
 
@@ -22,32 +22,35 @@ const OrderDetails = () => {
 
   const handeldeleteOrder = (orderId) => {
     axios
-      .delete(
-        `http://127.0.0.1:8080/ecom/orders/users/${userId}/${orderId}`
-      )
+      .delete(`http://127.0.0.1:8080/ecom/orders/users/${userId}/${orderId}`)
       .then((response) => {
-        setMsg(response.data);
         alert(response.data);
+  
+        const updatedAllOrder = allOrder.filter((order) => order.orderId !== orderId);
+        setAllOrder(updatedAllOrder);
+        setDeleted(true);
       })
       .catch((error) => {
         console.error("Error fetching data from the API: ", error);
       });
   };
+  
 
   useEffect(() => {
+    document.title = "Ecommerse | Order details";
     api
       .get(`/ecom/orders/orders/${userId}`)
       .then((response) => {
         const sortedOrders = response.data.sort((a, b) => {
           return new Date(b.orderDate) - new Date(a.orderDate);
         });
-
         setAllOrder(sortedOrders);
+        setDeleted(false);
       })
       .catch((error) => {
         console.error("Error fetching data from the API: ", error);
       });
-  }, [msg, userId,selectedComponent]);
+  }, [deleted, userId, selectedComponent]);
 
   const renderSelectedComponent = () => {
     switch (selectedComponent) {

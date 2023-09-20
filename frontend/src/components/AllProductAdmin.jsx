@@ -9,7 +9,7 @@ const AllProductAdmin = () => {
   const { productId } = useParams();
   const [products, setProducts] = useState([]);
   const [deleted, setDeleted] = useState(false);
-  const [showUpdateModal, setShowUpdateModal] = useState(false); // State to control the modal visibility
+  const [showUpdateModal, setShowUpdateModal] = useState(false); 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const updateProduct = (productIdToUpdate) => {

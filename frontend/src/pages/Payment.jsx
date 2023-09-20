@@ -18,6 +18,7 @@ const Payment = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = 'Ecommerse | Payment';
     api
       .post(
         `/ecom/order-payments/makePayment?orderId=${orderid}&userId=${userid}`

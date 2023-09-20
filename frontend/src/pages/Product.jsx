@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import "../comp_css/Product.css";
-import api from '../Router/api'
+import api from "../Router/api";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -26,9 +26,7 @@ const Product = () => {
 
   const addProductToCart = (productid) => {
     api
-      .post(
-        `/ecom/cart/add-product?userId=${userid}&productId=${productid}`
-      )
+      .post(`/ecom/cart/add-product?userId=${userid}&productId=${productid}`)
       .then((response) => {
         localStorage.setItem("cartid", response.data.cartId);
 
@@ -36,7 +34,7 @@ const Product = () => {
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          alert(error.response.data.message); 
+          alert(error.response.data.message);
         } else {
           alert("Error To adding Product . Please try again later.");
           console.error("Error registering:", error);
@@ -63,7 +61,7 @@ const Product = () => {
 
     if (price !== "All") {
       filteredProducts = filteredProducts.filter(
-        (product) => product.price <= parseInt(price)
+        (product) => product.price > product.price
       );
     }
     setFilteredProducts(filteredProducts);
@@ -78,9 +76,10 @@ const Product = () => {
           onChange={(e) => handleCategoryChange(e.target.value)}
         >
           <option value="All">All</option>
-          <option value="Veg">Vegetable</option>
-          <option value="Fruits">Fruits</option>
-          <option value="Elect">Electronic</option>
+          <option value="vegetables">Vegetable</option>
+          <option value="fruits">Fruits</option>
+          <option value="electronics">Electronic</option>
+          <option value="gadgets">Gaggets</option>
         </select>
 
         <label>Filter by Price:</label>
@@ -91,33 +90,62 @@ const Product = () => {
           <option value="All">All</option>
           <option value="lowToHigh">Low To High</option>
           <option value="hightToLow">High to Low</option>
-          <option value="100">Less than ₹100</option>
-          <option value="200">Less than ₹200</option>
         </select>
       </div>
 
       <div className="product-list">
-        {filteredProducts.map((product) => (
-          <div className="product-card" key={product.productId}>
-            <div className="product-image1">
-              <img src={product.imageUrl} alt={product.name} />
-            </div>
-            <div className="product-info">
-              <h2>{product.name}</h2>
-              <p>Category: {product.category}</p>
-              <p>Description: {product.description}</p>
-              <h2 className="product-price">Price: ₹ {product.price}</h2>
-              <div>
-                <button onClick={() => addProductToCart(product.productId)}>
-                  Add to Cart
-                </button>
-                <button>
-                  <Link to={`/product/${product.productId}`}>View</Link>
-                </button>
+        {filteredProducts.length == 0 ? (
+          <h1
+            style={{
+              textAlign: "center",
+              margin: "50px",
+              color: "green",
+              width: "800px",
+            }}
+          >
+            Product Not found With Selected{" "}
+          </h1>
+        ) : (
+          filteredProducts.map((product) => (
+            <div className="product-card" key={product.productId}>
+              <div className="product-image1">
+                <img src={product.imageUrl} alt={product.name} />
+              </div>
+              <div className="product-info">
+                <h2>{product.name}</h2>
+                <p>
+                  <strong>Category :</strong> {product.category}
+                </p>
+                <p>
+                  <strong>Description: </strong>
+                  {product.description.substring(0, 25)}
+                </p>
+                <h2 className="product-price">Price: ₹ {product.price}</h2>
+                <p>
+                  {" "}
+                  <strong>Rating :</strong>
+                  {product.reviews.length == 0
+                    ? "Not Available"
+                    : product.reviews[0].rating}
+                </p>
+
+                <div>
+                  <button onClick={() => addProductToCart(product.productId)}>
+                    Add to Cart
+                  </button>
+                  <button>
+                    <Link
+                      to={`/product/${product.productId}`}
+                      style={{ textDecoration: "none", color: "white" }}
+                    >
+                      View
+                    </Link>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
