@@ -12,7 +12,7 @@ public interface AddressService {
 	
 	public Address addAddressToUser(Integer userId,Address address) throws AddressException;
 	
-	public Address updateAddress( Address address) throws AddressException ;
+	public Address updateAddress( Address address,Integer addressId) throws AddressException ;
 	
 	public void   removeAddress(Integer addressId)throws AddressException;
 	

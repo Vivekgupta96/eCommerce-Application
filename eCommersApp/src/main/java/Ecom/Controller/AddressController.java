@@ -35,13 +35,13 @@ public class AddressController {
         return new ResponseEntity<>(addedAddress, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Address> updateAddress( @Valid @RequestBody Address address) {
-        Address updatedAddress = addressService.updateAddress(address);
+    @PutMapping("/update/{addressId}")
+    public ResponseEntity<Address> updateAddress( @Valid @RequestBody Address address,@PathVariable Integer addressId) {
+        Address updatedAddress = addressService.updateAddress(address,addressId);
         return ResponseEntity.ok(updatedAddress);
     }
 
-    @DeleteMapping("/{addressId}")
+    @DeleteMapping("/delete/{addressId}")
     public ResponseEntity<String> removeAddress(@PathVariable Integer addressId) {
         addressService.removeAddress(addressId);
         return ResponseEntity.ok("Address removed successfully");

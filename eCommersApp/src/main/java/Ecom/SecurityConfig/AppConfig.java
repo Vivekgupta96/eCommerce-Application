@@ -74,7 +74,7 @@ public class AppConfig {
                                     HttpMethod.PUT,
                                     "/ecom/admin/**",
                                     "/ecom/product-reviews/**",
-                                    "/ecom/customer-addresses/**",
+                                    "/ecom/customer-addresses/update/**",
                                     "/ecom/cart/**", "/ecom/order-shipping/**"
 
                             ).hasRole("USER")
@@ -83,7 +83,7 @@ public class AppConfig {
                                     HttpMethod.DELETE,
                                     "/ecom/products/**",
                                     "/ecom/product-reviews/**",
-                                    "/ecom/customer-addresses/**",
+                                    "/ecom/customer-addresses/delete/**",
 //                                    "/ecom/orders/users/**",
                                     "/ecom/order-shipping/**",
                                     "/ecom/order-shippers/**"

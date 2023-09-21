@@ -35,9 +35,9 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address updateAddress(Address address) throws AddressException {
+    public Address updateAddress(Address address,Integer addressId) throws AddressException {
 
-        Address existingAddress = addressRepository.findById(address.getAddressID())
+        Address existingAddress = addressRepository.findById(addressId)
                 .orElseThrow(() -> new AddressException("Address not found"));
 
 

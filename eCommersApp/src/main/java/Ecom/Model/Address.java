@@ -40,7 +40,6 @@ public class Address {
 
 	@NotNull(message = "zipCode should not Blank")
 	@NotBlank(message = "zipCode is Mandatory")
-	@Size(max = 20)
 	private String ZipCode;
 
 	@Size(max = 10)
