@@ -52,8 +52,8 @@ const Footer = () => {
           <p>
             Register now to get updates on promotions and coupons
           </p>
-          <p className="admin-link">
-            <Link to="/admin-Login">Admin Access</Link>
+          <p className="admin-link" >
+            <Link to="/admin-Login"  style={{color:"white"}}>Admin Access</Link>
           </p>
         </div>
       </div>

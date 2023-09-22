@@ -4,9 +4,11 @@ import AddProduct from "../components/AddProduct";
 import AddCustomerAdmin from "../components/AdminUserDetails";
 import AddOrderAdmin from "../components/AllOrderAdmin";
 import AllProductAdmin from "../components/AllProductAdmin";
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const navigate = useNavigate();
 
   const renderSelectedComponent = () => {
     switch (selectedComponent) {
@@ -23,9 +25,26 @@ const Admin = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center", color: "blue", margin: "20px" }}>
-        ADMIN PAGE
-      </h1>
+      <div className="admin-navbar">
+        <h3
+          onClick={() => {
+            setSelectedComponent(<AllProductAdmin />);
+          }}
+        >
+          Admin Home
+        </h3>
+        <h1 style={{ textAlign: "center", color: "blue" }}>ADMIN PAGE</h1>
+        <h3
+          onClick={() => {
+            localStorage.removeItem("adminid");
+            localStorage.removeItem("jwtTocken");
+            navigate("/admin-login");
+          }}
+        >
+          Logout
+        </h3>
+      </div>
+
       <div className="admincontainer">
         <div className="productConatiner">{renderSelectedComponent()}</div>
         <div className="boxConatiner">

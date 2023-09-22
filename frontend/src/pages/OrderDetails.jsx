@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useNavigation } from "react-router-dom";
 import UpdatePassword from "../components/UpdatePassword";
 import Profile from "../components/Profile";
-import UpdateAddress from "../components/UpdateAddress";
+import UpdateAddress from "../components/Address";
 import api from "../Router/api";
 
 import "../comp_css/order.css";
@@ -58,8 +58,7 @@ const OrderDetails = () => {
         return <Profile />;
       case "updatePassword":
         return <UpdatePassword />;
-      case "updateAddress":
-        return <UpdateAddress />;
+      
       default:
         return null;
     }
@@ -152,9 +151,6 @@ const OrderDetails = () => {
           </button>
           <button onClick={() => setSelectedComponent("updatePassword")}>
             Update Password
-          </button>
-          <button onClick={() => setSelectedComponent("updateAddress")}>
-            Update Address
           </button>
         </div>
       </div>

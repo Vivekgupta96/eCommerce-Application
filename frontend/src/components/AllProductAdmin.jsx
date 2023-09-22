@@ -20,11 +20,12 @@ const AllProductAdmin = () => {
     setShowUpdateModal(true);
   };
 
-  const closeUpdateModal = () => {
+  const closeUpdateModal = () => {//sending function as a props to the updateproduct form
     setSelectedProduct(null);
     setShowUpdateModal(false);
   };
-  const handleUpdate = (updatedProduct) => {
+  
+  const handleUpdate = (updatedProduct) => {//sending function as a props to the updateproduct form
     api
       .put(`/ecom/products/update/${updatedProduct.productId}`, updatedProduct)
       .then((response) => {
@@ -76,15 +77,15 @@ const AllProductAdmin = () => {
       <h1 style={{ color: "green", textAlign: "center", margin: "5px" }}>
         ALL Live Products{" "}
       </h1>
+
       {showUpdateModal && (
         <div className="update-modal">
-          <UpdateProductForm
-            product={selectedProduct}
-            onUpdate={handleUpdate}
-            onClose={closeUpdateModal}
+          <UpdateProductForm product={selectedProduct} onUpdate={handleUpdate}onClose={closeUpdateModal}
           />
         </div>
       )}
+
+
       <div className="product-container1">
         {products.map((product) => (
           <div className="product-card1" key={product.productId}>

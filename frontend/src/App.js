@@ -9,7 +9,7 @@ function App() {
   const isRestrictedPath = [
     "/login",
     "/register-user",
-    "/admin-Login",
+    "/admin-login",
     "/admin/admin",
     "*"
   ].includes(location.pathname);
