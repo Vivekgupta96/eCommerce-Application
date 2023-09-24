@@ -71,9 +71,9 @@ const Login = () => {
   return (
     <>
     <div style={bg}>
-      <h1 style={{ textAlign: "center", color: "White", margin: "20px" }}>
-        Welcome To User login Page
-      </h1>
+      <h2 style={{ textAlign: "center", color: "White", margin: "20px" }}>
+       WELCOME TO USER LOGIN PAGE
+      </h2>
       <div className="loginConatiner" >
         <div className="login-form">
           <h2 style={{ textAlign: "center" }}>LogIn </h2>

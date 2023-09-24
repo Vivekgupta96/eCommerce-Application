@@ -6,8 +6,9 @@ const Privateroute = () => {
   if (localStorage.getItem("jwtToken") && localStorage.getItem("userid")) {
     auth = true;
   }
-  return auth ? <Outlet /> : <Navigate to="/Login" />;
+  return auth ? <Outlet /> : <Navigate to="/login" />;
 };
+
 const Privaterouteadmin = () => {
   let auth = false;
   if (localStorage.getItem("jwtToken") && localStorage.getItem("adminid")) {

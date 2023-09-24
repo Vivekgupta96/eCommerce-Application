@@ -5,14 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Ecom.Model.Product;
 import Ecom.ModelDTO.ProductDTO;
@@ -45,10 +38,17 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProduct();
+    public ResponseEntity<List<Product>> search(
+       @RequestParam (required = false)  String keyword,
+       @RequestParam(required = false,defaultValue = "asc") String sort,
+       @RequestParam(required = false,defaultValue = "price") String sortBy
+
+    ) {
+        List<Product> products = productService.getAllProduct(keyword, sort, sortBy);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+
+
 
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Product>> getProductByCategory(@PathVariable String category) {

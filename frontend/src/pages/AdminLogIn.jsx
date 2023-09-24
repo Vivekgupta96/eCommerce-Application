@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import "../comp_css/Login.css";
 import { useNavigate, Link } from "react-router-dom";
@@ -12,13 +11,12 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState(formData);
 
-
   useEffect(() => {
-    document.title = 'Ecommerse | Admin LogIn';
-    return () => { 
-      document.title = 'Ecommerse App';
+    document.title = "Ecommerse | Admin LogIn";
+    return () => {
+      document.title = "Ecommerse App";
     };
-  }, []); 
+  }, []);
   const setHandlerChange = (e) => {
     const val = e.target.value;
     setForm({ ...form, [e.target.name]: val });
@@ -33,7 +31,7 @@ const AdminLogin = () => {
           Authorization: authHeader,
         },
       });
-    
+
       if (response.headers.authorization != undefined) {
         localStorage.setItem("jwtToken", response.headers.authorization);
         localStorage.setItem("adminid", response.data.id);
@@ -55,42 +53,44 @@ const AdminLogin = () => {
 
   const { username, password } = form;
 
-  return (<>
-  <h1 style={{ textAlign: "center", color: "blue",margin:"20px" }}>Welcome To admin login Page</h1>
-   
-    <div className="loginConatiner">
-      <div className="login-form">
-        <h2 style={{ textAlign: "center" }}>Admin LogIn </h2>
-        <form onSubmit={submitHandler}>
-          <div className="form-group">
-            <label htmlFor="username">Username:</label>
-            <input
-              id="username"
-              type="text"
-              name="username"
-              value={username}
-              onChange={setHandlerChange}
-            />
-          </div>
-          <br />
-          <div className="form-group">
-            <label>Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={setHandlerChange}
-            />
-          </div>
-          <div className="form-group">
-            <input type="submit" value="Login" />
-          </div>
-        </form>
+  return (
+    <>
+      <h2 style={{ textAlign: "center", color: "White", margin: "10px" }}>
+        WELCOME TO ADMIN LOGIN PAGE
+      </h2>
+
+      <div className="loginConatiner">
+        <div className="login-form">
+          <h2 style={{ textAlign: "center" }}>Admin LogIn </h2>
+          <form onSubmit={submitHandler}>
+            <div className="form-group">
+              <label htmlFor="username">Username:</label>
+              <input
+                id="username"
+                type="text"
+                name="username"
+                value={username}
+                onChange={setHandlerChange}
+              />
+            </div>
+            <br />
+            <div className="form-group">
+              <label>Password:</label>
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={setHandlerChange}
+              />
+            </div>
+            <div className="form-group">
+              <input type="submit" value="Login" />
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </>
   );
-  
 };
 
 export default AdminLogin;

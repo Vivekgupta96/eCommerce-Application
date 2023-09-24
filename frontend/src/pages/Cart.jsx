@@ -15,6 +15,7 @@ const Cart = () => {
       .post(`/ecom/orders/placed/${userId}`)
       .then((response) => {
         alert("Order Placed Succesfuly.....");
+        navigate("/user/order-details");
       })
       .catch((error) => {
         console.error("Error fetching data from the API: ", error);
@@ -23,7 +24,7 @@ const Cart = () => {
 
   const orderPlaced = () => {
     apiCallOrderPlaced();
-    navigate("/user/order-details");
+    
   };
   const fetchCartData = () => {
     api
@@ -39,7 +40,6 @@ const Cart = () => {
 
   useEffect(() => {
     document.title = "Ecommerse | Cart";
-
     fetchCartData();
   }, [cartId, totalAmount]);
   const emptyCart = () => {

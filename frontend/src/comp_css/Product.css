@@ -5,16 +5,19 @@
     min-height: 90vh;
     /* border: 2px solid red; */
     margin-bottom: 30px;
+    background-color: whitesmoke;
 }
 
 .filter-section {
     margin-top: 15px;
-    background-color: white;
+    
     padding: 10px;
     margin-right: 56px;
     margin-left: 10px;
     width: 18%;
     /* border: 1px solid grey; */
+    background-color: white;
+    border-radius: 5px;
 
 }
 

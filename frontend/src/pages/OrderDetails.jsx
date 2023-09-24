@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useNavigation } from "react-router-dom";
-import UpdatePassword from "../components/UpdatePassword";
 import Profile from "../components/Profile";
-import UpdateAddress from "../components/Address";
 import api from "../Router/api";
 
 import "../comp_css/order.css";
@@ -13,20 +11,25 @@ const OrderDetails = () => {
   const userId = localStorage.getItem("userid");
   const [deleted, setDeleted] = useState(false);
   const [allOrder, setAllOrder] = useState([]);
-  const [selectedComponent, setSelectedComponent] = useState(null);
 
   const handeldemakePayment = (orderid) => {
     localStorage.setItem("orderid", orderid);
     navigate("/user/make-payment");
   };
 
+  const handleProfileSection = (userid) => {
+    navigate(`/user/profile/${userid}`);
+  };
+ 
   const handeldeleteOrder = (orderId) => {
     axios
       .delete(`http://127.0.0.1:8080/ecom/orders/users/${userId}/${orderId}`)
       .then((response) => {
         alert(response.data);
-  
-        const updatedAllOrder = allOrder.filter((order) => order.orderId !== orderId);
+
+        const updatedAllOrder = allOrder.filter(
+          (order) => order.orderId !== orderId
+        );
         setAllOrder(updatedAllOrder);
         setDeleted(true);
       })
@@ -34,7 +37,6 @@ const OrderDetails = () => {
         console.error("Error fetching data from the API: ", error);
       });
   };
-  
 
   useEffect(() => {
     document.title = "Ecommerse | Order details";
@@ -50,25 +52,14 @@ const OrderDetails = () => {
       .catch((error) => {
         console.error("Error fetching data from the API: ", error);
       });
-  }, [deleted, userId, selectedComponent]);
+  }, [deleted, userId]);
 
-  const renderSelectedComponent = () => {
-    switch (selectedComponent) {
-      case "profile":
-        return <Profile />;
-      case "updatePassword":
-        return <UpdatePassword />;
-      
-      default:
-        return null;
-    }
-  };
+ 
   return (
     <>
       <div className="container">
         <div className="orderContainer">
-          {selectedComponent === null ? (
-            allOrder.length > 0 ? (
+       { allOrder.length > 0 ? (
               allOrder.map((order, index) => (
                 <div key={index} className="order">
                   <div className="odr1">
@@ -134,24 +125,14 @@ const OrderDetails = () => {
               >
                 <h1 style={{ marginTop: "50px" }}>No items present</h1>
               </div>
-            )
-          ) : (
-            <div className="selected-component-container">
-              {renderSelectedComponent()}
-              <button onClick={() => setSelectedComponent(null)}>
-                Back to Orders
-              </button>
-            </div>
-          )}
+            )}
         </div>
         <div className="box">
-          <h1>Profile</h1>
-          <button onClick={() => setSelectedComponent("profile")}>
+          <h3>Order History</h3>
+          <button onClick={() => handleProfileSection(userId)}>
             View Profile
           </button>
-          <button onClick={() => setSelectedComponent("updatePassword")}>
-            Update Password
-          </button>
+          
         </div>
       </div>
     </>
