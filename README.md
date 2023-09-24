@@ -1,54 +1,52 @@
-# Restful API for Online eCommerce Application using SpringBoot and Reactjs for frontEnd with Spring Security with JWT Implementation 
+# Restful API for Online eCommerce Application using SpringBoot and Reactjs for frontEnd with Spring Security with JWT Implementation
 
 An eCommerce Application backend with Java Spring Boot with frontend using the Reactjs
 
+- Welcome to the documentation for the Ecommerce API, a powerful RESTful API for an Online eCommerce Application developed using Spring Boot, Spring Security with JWT implementation, and React for the frontend. This API provides comprehensive endpoints to support various features of an Ecommerce Application.
 
-* Welcome to the documentation for the Ecommerce API, a powerful RESTful API for an Online eCommerce Application developed using Spring Boot, Spring Security with JWT implementation, and React for the frontend. This API provides comprehensive endpoints to support various features of an Ecommerce Application.
-
-### Deployed link:    https://eccomers96.netlify.app/
-
+### Deployed link: https://eccomers96.netlify.app/
 
 ## Tech Stack and Technology Used
 
-* Java
-* Spring Framework
-* Spring Boot
-* JavaScript
-* React
-* Spring Data JPA
-* Hibernate
-* MySQL (DataBase)
-* Swagger
-* Spring Security
-* JSON Web Tokens (JWT)
-* BCrypt
-* Maven
-* Axios
-  
+- Java
+- Spring Framework
+- Spring Boot
+- JavaScript
+- React
+- Spring Data JPA
+- Hibernate
+- MySQL (DataBase)
+- Swagger
+- Spring Security
+- JSON Web Tokens (JWT)
+- BCrypt
+- Maven
+- Axios
 
-  
-## Schema Table 
-![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/ER_diagram.png)
+## Schema Table
 
+![Master](ER_diagram.png)
 
 ## Features
-* User registration and login with JWT  authentication
-* Password encryption using BCrypt
-* Role-based authorization with Spring Security for user and admin
-* Customized access denied handling
-* User Module
-* Admin Module
+
+- User registration and login with JWT authentication
+- Password encryption using BCrypt
+- Role-based authorization with Spring Security for user and admin
+- Customized access denied handling
+- User Module
+- Admin Module
 
 ## Getting Started
+
 To get started with this project, you will need to have the following installed on your local machine:
 
-* JDK 17+
-* Maven 3+
+- JDK 17+
+- Maven 3+
 
 To install this application, run the following commands:
 
 ```bash
-git clone https://github.com/Vivekgupta96/eCommerce-Application.git 
+git clone https://github.com/Vivekgupta96/eCommerce-Application.git
 cd eCommerse Application
 ```
 
@@ -79,11 +77,10 @@ https://localhost:8080/
 http://localhost:8080/swagger-ui/index.html
 ```
 
-
-* To Get Access as admin , you have to use below query for register the admin for the first time in MySQL databse folling are details below
+- To Get Access as admin , you have to use below query for register the admin for the first time in MySQL databse folling are details below
 
 ```
-step:1 
+step:1
 use ecomdb;
 
 step:2
@@ -95,15 +92,17 @@ step:3
 Admin Login using credetials ,now you are ready to do all aldmin operation
 
 ```
+
 ## For Running frontend in Local Machine
-* Getting Started
 
-- Before you can run the React frontend, make sure you have the following prerequisites installed on your machine:
+- Getting Started
 
-- Node.js: Ensure you have Node.js installed. 
+* Before you can run the React frontend, make sure you have the following prerequisites installed on your machine:
 
+* Node.js: Ensure you have Node.js installed.
 
 ### Installation
+
 - Once you have the prerequisites in place, follow these steps to install the required packages for the React frontend:
 
 - Open your terminal and navigate to the root directory of the React frontend project. This is the directory where you find the package.json file.
@@ -113,9 +112,11 @@ Admin Login using credetials ,now you are ready to do all aldmin operation
 ```
 npm install
 ```
+
 - This command will download and install all the dependencies listed in the package.json file.
 
-###  Running the Application
+### Running the Application
+
 - To run the React frontend locally, follow these steps:
 
 - Open your terminal and navigate to the root directory of the React frontend project.
@@ -134,23 +135,44 @@ http://localhost:3000
 
 You should now see the React frontend of the Ecommerce Application running locally.
 
+### Below are the website Shot
+
+![Master](ecomShot\login.png)
+
+![Master](ecomShot\home.png)
+
+![Master](ecomShot\product.png)
+
+![Master](ecomShot\cart.png)
+
+![Master](ecomShot\history.png)
+
+![Master](ecomShot\profile.png)
+
+![Master](ecomShot\admin.png)
+
+![Master](ecomShot\Allorderdetails.png)
+
+![Master](ecomShot\productadd.png)
+
+![Master](ecomShot\alluser.png)
+
+![Master](ecomShot\register.png)
 
 ### Below are the endPoint
 
-![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(759).png)
+![Master](end-point-shot\endpoint1.png)
 
-![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(755).png)
+![Master](end-point-shot\endpoint2.png)
 
-![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(756).png)
+![Master](end-point-shot\endpoint3.png)
 
-![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(757).png)
+![Master](end-point-shot\endpoint4.png)
 
-![Master](https://github.com/Vivekgupta96/eCommerce-Application/blob/main/end-point-shot/Screenshot%20(758).png)
+![Master](end-point-shot\endpoint5.png)
 
 ## Links
 
 This project uses the following open source libraries:
 
 - [Spring Boot](https://spring.io/projects/spring-boot)
-
-
