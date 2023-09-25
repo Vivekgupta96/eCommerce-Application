@@ -5,6 +5,11 @@ import Address from "../components/Address";
 import UpdateAddress from "../components/UpdateAddress";
 
 const userid = localStorage.getItem("userid");
+const passData={
+  newpass:""
+}
+
+
 
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
@@ -12,28 +17,26 @@ const Profile = () => {
   const [addressModal, setAddressModal] = useState(false);
   const [updateaddressModal, setUpdateAddressModal] = useState(false);
   const [showPassSection, setShowPassSection] = useState(false);
-  const [newPassword1, setNewPassword1] = useState("");
+  const [passform, setNewPassword1] = useState("");
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    const { newPassword, value } = e.target;
-    setNewPassword1({ ...newPassword1, [newPassword]: value });
+    const val = e.target.value;
+    setNewPassword1({ ...passform, [e.target.name]: val });
   };
 
   const handleSubmit = (e) => {
-    const data = {
-      newPassword: newPassword1,
-    };
+    
     e.preventDefault();
 
     api
-      .put("//ecom/customers/update-password/${userid}", data)
+      .put(`/ecom/customers/update-password/${userid}`, passform)
       .then((response) => {
         alert("Password updated successfully");
         setShowPassSection(false);
       })
       .catch((error) => {
-        setError(error.response.data.message);
+        alert("Error occures Try letter....")
       });
   };
   const changePassword = () => {
@@ -68,6 +71,8 @@ const Profile = () => {
       });
   }, [userid]);
 
+
+  const {newpass}=passform;
   const latestAddress = profileData?.address?.length
     ? profileData.address[profileData.address.length - 1]
     : null;
@@ -174,7 +179,7 @@ const Profile = () => {
               <input
                 type="password"
                 name="newPassword"
-                value={newPassword1}
+                value={newpass}
                 onChange={handleChange}
               />
               {error && <p className="error">{error}</p>}
