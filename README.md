@@ -92,6 +92,8 @@ Admin Login using credetials ,now you are ready to do all aldmin operation
 
 ```
 
+## Admin Access point :- On Footer section rightSide (Admin Access) at Landing / Home PAge
+
 ## For Running frontend in Local Machine
 
 - Getting Started
