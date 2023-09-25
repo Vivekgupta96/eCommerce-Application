@@ -24,8 +24,7 @@ An eCommerce Application backend with Java Spring Boot with frontend using the R
 - Axios
 
 ## Schema Table
-
-![Master](ER_diagram.png)
+![ER_diagram](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/3bd9f9b8-29a8-42fe-93fd-daa931d46c70)
 
 ## Features
 
@@ -135,41 +134,41 @@ http://localhost:3000
 
 You should now see the React frontend of the Ecommerce Application running locally.
 
-### Below are the website Shot
+## Below are the website Shot
+![register](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/a190a275-8f04-423e-95da-d394c5a035e4)
 
-![Master](ecomShot\login.png)
+![login](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/46d7e173-11c6-44fd-a4b1-00e6ae64717e)
 
-![Master](ecomShot\home.png)
+![home](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/1f38ba7d-bb1d-43a4-a35d-88fd3746c537)
 
-![Master](ecomShot\product.png)
+![product](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/bfa23279-c7a0-4466-998e-4c61942e29a8)
 
-![Master](ecomShot\cart.png)
+![cart](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/412d1734-dc1f-4f53-bf6a-f598ebc636c2)
 
-![Master](ecomShot\history.png)
 
-![Master](ecomShot\profile.png)
+![history](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/7b96800a-2b87-4d22-96b6-223964d708c3)
 
-![Master](ecomShot\admin.png)
+![profile](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/dc3b9dcc-89e1-461a-842c-d14ba6b1b020)
 
-![Master](ecomShot\Allorderdetails.png)
+![admin](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/6bdbd598-8130-4e3f-b988-258ae8185f82)
 
-![Master](ecomShot\productadd.png)
+![Allorderdetails](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/4f2236b6-85c4-405a-98e2-b9ca3cd17b8e)
 
-![Master](ecomShot\alluser.png)
+![productadd](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/a37f175f-eebf-41b4-abd2-50b6e9826437)
 
-![Master](ecomShot\register.png)
+![alluser](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/0c4710a8-b9db-4827-954c-603285b318d5)
 
-### Below are the endPoint
 
-![Master](end-point-shot\endpoint1.png)
+## Below are the endPoint
+![endpoint1](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/984456e4-fc64-4c8b-b38e-cb681ec49cb6)
 
-![Master](end-point-shot\endpoint2.png)
+![endpoint2](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/f390583b-d608-4f2e-af85-868441bb3981)
 
-![Master](end-point-shot\endpoint3.png)
+![endpoint3](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/02afbb69-96f6-4cd6-84cc-9baf595e9da9)
 
-![Master](end-point-shot\endpoint4.png)
+![endpoint4](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/743fa282-f9b0-4ad3-a6a7-f064649fb494)
 
-![Master](end-point-shot\endpoint5.png)
+![endpoint5](https://github.com/Vivekgupta96/eCommerce-Application/assets/119284680/27ce182d-05f5-4260-a2ab-a59485a8788a)
 
 ## Links
 
