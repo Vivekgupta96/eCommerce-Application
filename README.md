@@ -42,11 +42,17 @@ To get started with this project, you will need to have the following installed 
 - JDK 17+
 - Maven 3+
 
+## Installation & Run
 To install this application, run the following commands:
 
+### Clone the project repository:
 ```bash
 git clone https://github.com/Vivekgupta96/eCommerce-Application.git
-cd eCommerse Application
+```
+### Navigate to the project directory:
+```
+cd eCommerce-Application
+
 ```
 
 This will get a copy of the project installed locally. To configure all of its dependencies and start each app, follow the instructions below.
@@ -57,8 +63,6 @@ Once MySQL is installed you must configure a username and password. By default t
 
 In the file `application.configure` you must edit the parameters `spring.datasource.username` and `spring.datasource.password` with the values you defined.
 
-## Installation & Run
-
 ```
     server.port=8080
 
@@ -68,6 +72,13 @@ In the file `application.configure` you must edit the parameters `spring.datasou
     spring.datasource.password=SQLUserPassword(i.e=root)
 
 ```
+
+## Build and run the Spring Boot application using CMD
+```
+mvnw spring-boot:run
+```
+```
+
 
 ## API Root Endpoint with Swagger Documentation
 
