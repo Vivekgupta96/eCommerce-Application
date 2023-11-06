@@ -7,7 +7,7 @@ An eCommerce Application backend with Java Spring Boot with frontend using the R
 ### Deployed link: https://eccomers96.netlify.app/
 
 ###  Railway Deployed Apis
-https://ecommerce-application-production.up.railway.app/swagger-ui/index.html#/
+https://api-ecom.up.railway.app//swagger-ui/index.html#/
 
 ## Tech Stack and Technology Used
 
@@ -89,7 +89,7 @@ mvnw spring-boot:run
 ### https://localhost:8080/
 
 ###  Railway Deployed Apis
-https://ecommerce-application-production.up.railway.app/swagger-ui/index.html#/
+https://api-ecom.up.railway.app/swagger-ui/index.html#/
 ### http://localhost:8080/swagger-ui/index.html
 ```
 
