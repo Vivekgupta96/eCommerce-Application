@@ -36,10 +36,9 @@ public class AppConfig {
                             cfg.setAllowedOriginPatterns(Collections.singletonList("https://eccomers96.netlify.app/"));
                             cfg.setAllowedOriginPatterns(Collections.singletonList("http://localhost:3000"));
                             cfg.setAllowedMethods(Collections.singletonList("*"));
-                            cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        
                             cfg.setAllowCredentials(true);
                             cfg.setAllowedHeaders(Collections.singletonList("*"));
-                            cfg.setAllowedHeaders("*");
                             cfg.setExposedHeaders(Arrays.asList("Authorization"));
 
                             return cfg;
